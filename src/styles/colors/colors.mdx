@@ -1,0 +1,62 @@
+import { Fragment } from 'react';
+import { Canvas, Meta } from '@storybook/blocks';
+import { upperFirst } from 'lodash-es';
+import { HUES, SHADES, color } from './index';
+
+<Meta title="Styles/Colors" />
+
+<style>
+  {`
+    .palette {
+      --drop-height: 2rem;
+      --drop-width: 3.5rem;
+      display: grid;
+      grid-template-columns: auto repeat(${SHADES.length}, var(--drop-width));
+      gap: 1rem 0.5rem;
+      width: max-content;
+    }
+
+    .palette * {
+      font-family: monospace;
+    }
+
+    .palette__name {
+      text-align: right;
+      line-height: var(--drop-height);
+    }
+
+    .palette__drop {
+      background-color: currentColor;
+      border: 1px solid var(--slate-300);
+      border-radius: 0.25rem;
+      height: var(--drop-height);
+    }
+
+    .palette__value {
+      font-size: 0.625rem;
+      white-space: nowrap;
+    }
+  `}
+</style>
+
+<div className="palette">
+  {SHADES.map((shade, i) => (
+    <div key={shade} style={{ textAlign: 'center', gridColumn: i + 2 }}>
+      {shade}
+    </div>
+  ))}
+  {HUES.map((hue) => (
+    <Fragment key={hue}>
+      <div className="palette__name">{upperFirst(hue)}</div>
+      {SHADES.map((shade) => (
+        <div key={shade}>
+          <div
+            className="palette__drop"
+            style={{ color: `var(--${hue}-${shade})` }}
+            onClick={() => navigator.clipboard.writeText(`var(--${hue}-${shade})`)}
+          />
+        </div>
+      ))}
+    </Fragment>
+  ))}
+</div>

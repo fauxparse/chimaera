@@ -1,0 +1,3 @@
+:root {
+  @import-json "./colors.json";
+}
