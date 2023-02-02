@@ -40,3 +40,9 @@ export const Button: Story = {
     as: 'button',
   },
 };
+
+export const Loading: Story = {
+  args: {
+    loading: true,
+  },
+};

@@ -2,4 +2,6 @@
 :where([data-theme="light"]) {
   --background: var(--slate-50);
   --foreground: var(--slate-800);
+  --skeleton-base: var(--slate-200);
+  --skeleton-highlight: var(--slate-100);
 }

@@ -11,12 +11,14 @@
   --font-family-fancy: var(--font-stack-sans-serif);
   --font-family-mono: var(--font-stack-monospace);
 
-  font-family: var(--font-family-default);
-
   --font-size-tiny: token("font.size.tiny");
   --font-size-small: token("font.size.small");
   --font-size-medium: token("font.size.medium");
   --line-height-tiny: token("font.lineHeight.tiny");
   --line-height-small: token("font.lineHeight.small");
   --line-height-medium: token("font.lineHeight.medium");
+
+  font-family: var(--font-family-default);
+  font-size: var(--font-size-medium);
+  line-height: var(--line-height-medium);
 }

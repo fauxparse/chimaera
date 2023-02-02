@@ -1,0 +1,12 @@
+[data-theme] .react-loading-skeleton {
+  --base-color: var(--skeleton-base);
+  --highlight-color: var(--skeleton-highlight);
+
+  &__container {
+    line-height: 1;
+  }
+}
+
+:has(> .react-loading-skeleton) {
+  line-height: 1;
+}
