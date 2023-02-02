@@ -1,0 +1,5 @@
+:root,
+:where([data-theme="light"]) {
+  --background: var(--slate-50);
+  --foreground: var(--slate-800);
+}

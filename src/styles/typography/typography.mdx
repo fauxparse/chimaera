@@ -1,0 +1,42 @@
+import { Fragment } from 'react';
+import { Canvas, Meta } from '@storybook/blocks';
+import { upperFirst } from 'lodash-es';
+import { FontSize, fontSize, lineHeight } from './index';
+
+<Meta title="Styles/Typography" />
+
+<style>
+  {`
+    .typography {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      grid-gap: var(--spacing-large);
+      align-items: baseline;
+    }
+
+    .typography__size {
+      font-family: var(--font-family-mono);
+    }
+
+    .typography__size small {
+      display: block;
+    }
+  `}
+</style>
+
+<div className="typography">
+  {Object.values(FontSize).map((size) => (
+    <Fragment key={size}>
+      <div className="typography__size">
+        {upperFirst(size)}
+        <small>{`${fontSize(size)}/${lineHeight(size)}`}</small>
+      </div>
+      <div
+        className="typography__sample"
+        style={{ fontSize: `var(--font-size-${size})`, lineHeight: `var(--line-height-${size})` }}
+      >
+        A wizard’s job is to vex chumps quickly in fog.
+      </div>
+    </Fragment>
+  ))}
+</div>
