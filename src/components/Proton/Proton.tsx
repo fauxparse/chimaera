@@ -1,26 +1,13 @@
-import { ElementType, forwardRef, PropsWithChildren } from 'react';
+import { ElementType, forwardRef } from 'react';
 import Skeleton, { SkeletonProps } from 'react-loading-skeleton';
 import clsx from 'clsx';
-import { Polymorphic, PolymorphicRef, WithDisplayName } from 'types/polymorphic.types';
+
+import { PolymorphicRef } from '@/types/polymorphic.types';
+
+import { ProtonComponent, ProtonProps } from './Proton.types';
 
 import './Proton.css';
 import 'react-loading-skeleton/dist/skeleton.css';
-
-export type ProtonProps<C extends ElementType> = Polymorphic<
-  C,
-  PropsWithChildren<{
-    /** Class name applied to the base element */
-    baseClassName?: string;
-    /* Provide a skeleton when the component is loading */
-    loading?: boolean;
-    /* Custom props for the skeleton */
-    skeletonProps?: Partial<SkeletonProps>;
-  }>
->;
-
-type ProtonComponent = WithDisplayName<
-  <C extends ElementType = 'div'>(props: ProtonProps<C>) => React.ReactElement | null
->;
 
 const DEFAULT_SKELETON_PROPS: SkeletonProps = {
   inline: true,

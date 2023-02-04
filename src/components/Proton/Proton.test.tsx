@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import { Polymorphic, PolymorphicRef } from 'types/polymorphic.types';
 import { describe, expect, it } from 'vitest';
 
-import Proton, { ProtonProps } from './Proton';
+import Proton, { ProtonProps } from '.';
 
 describe('Proton', () => {
   it('renders a div by default', () => {

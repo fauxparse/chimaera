@@ -1,6 +1,7 @@
-import Proton, { ProtonProps } from './Proton';
+import Proton from './Proton';
+import { ExtendProton, ProtonProps } from './Proton.types';
 
 export { Proton };
-export type { ProtonProps };
+export type { ExtendProton, ProtonProps };
 
 export default Proton;

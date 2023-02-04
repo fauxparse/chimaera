@@ -1,0 +1,18 @@
+:root,
+:where([data-theme]) {
+  --button-background: transparent;
+  --button-foreground: var(--foreground);
+  --button-border-color: var(--foreground);
+  --button-border-width: 1px;
+  --button-border-radius: var(--border-radius-standard);
+}
+
+:where(.button) {
+  border: var(--button-border-width) solid var(--button-border-color);
+  border-radius: var(--button-border-radius);
+  background: var(--button-background);
+  color: var(--button-foreground);
+  appearance: none;
+  text-decoration: none;
+  box-shadow: none;
+}
