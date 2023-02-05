@@ -1,12 +1,11 @@
 import { themes } from '@storybook/theming';
 
 import { color } from '../src/styles/colors';
+import tokens from '../src/styles/tokens.json';
 
 const fonts = {
-  fontBase:
-    'system, -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto", "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif',
-  fontCode:
-    '"Operator Mono", Consolas, "Andale Mono WT", "Andale Mono", "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono", "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace',
+  fontBase: tokens.font.stack['sans-serif'],
+  fontCode: tokens.font.stack['monospace'],
 };
 
 export const light = {

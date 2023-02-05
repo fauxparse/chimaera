@@ -1,11 +1,7 @@
 :root {
-  --font-stack-sans-serif: system, -apple-system, ".SFNSText-Regular", "San Francisco", "Roboto",
-    "Segoe UI", "Helvetica Neue", "Lucida Grande", sans-serif;
-  --font-stack-serif: Cambria, "Hoefler Text", Utopia, "Liberation Serif",
-    "Nimbus Roman No9 L Regular", Times, "Times New Roman", serif;
-  --font-stack-monospace: "Operator Mono", Consolas, "Andale Mono WT", "Andale Mono",
-    "Lucida Console", "Lucida Sans Typewriter", "DejaVu Sans Mono", "Bitstream Vera Sans Mono",
-    "Liberation Mono", "Nimbus Mono L", Monaco, "Courier New", Courier, monospace;
+  --font-stack-sans-serif: token("font.stack.sans-serif");
+  --font-stack-serif: token("font.stack.serif");
+  --font-stack-monospace: token("font.stack.monospace");
 
   --font-family-default: var(--font-stack-sans-serif);
   --font-family-fancy: var(--font-stack-sans-serif);
@@ -14,11 +10,22 @@
   --font-size-tiny: token("font.size.tiny");
   --font-size-small: token("font.size.small");
   --font-size-medium: token("font.size.medium");
+  --font-size-large: token("font.size.large");
+  --font-weight-light: token("font.weight.light");
+  --font-weight-regular: token("font.weight.regular");
+  --font-weight-medium: token("font.weight.medium");
+  --font-weight-bold: token("font.weight.bold");
   --line-height-tiny: token("font.lineHeight.tiny");
   --line-height-small: token("font.lineHeight.small");
   --line-height-medium: token("font.lineHeight.medium");
+  --line-height-large: token("font.lineHeight.large");
 
-  font-family: var(--font-family-default);
+  font-weight: var(--font-weight-regular);
   font-size: var(--font-size-medium);
+  font-family: var(--font-family-default);
   line-height: var(--line-height-medium);
+}
+
+:where(*) {
+  font-family: var(--font-family-default);
 }

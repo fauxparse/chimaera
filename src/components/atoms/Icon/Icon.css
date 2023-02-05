@@ -1,0 +1,17 @@
+:where(.icon) {
+  width: var(--icon-size);
+  height: var(--icon-size);
+
+  :where(.icon__fill) {
+    opacity: var(--icon-fill-opacity);
+    fill: currentColor;
+  }
+
+  :where(.icon__line) {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: 2;
+  }
+}

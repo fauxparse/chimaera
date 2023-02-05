@@ -1,0 +1,16 @@
+@import "./light.css";
+@import "./dark.css";
+
+:root {
+  --accent-hsl: var(--rose-500-hsl);
+  --accent: hsl(var(--accent-hsl));
+  --accent-light-hsl: var(--rose-400-hsl);
+  --accent-light: hsl(var(--accent-light-hsl));
+  --accent-dark-hsl: var(--rose-700-hsl);
+  --accent-dark: hsl(var(--accent-dark-hsl));
+  --accent-inverse-hsl: var(--rose-50-hsl);
+  --accent-inverse: hsl(var(--accent-inverse-hsl));
+  --focus: hsl(var(--accent-hsl) / 0.25);
+  --disabled-opacity: 0.4;
+  --icon-fill-opacity: 0.125;
+}

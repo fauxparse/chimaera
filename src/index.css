@@ -1,8 +1,8 @@
 @import "./styles/sizes.css";
 @import "./styles/colors/colors.css";
 @import "./styles/typography/typography.css";
-@import "./styles/themes/light.css";
-@import "./styles/themes/dark.css";
+@import "./styles/transitions/transitions.css";
+@import "./styles/themes/index.css";
 
 :root {
   font-size: token("size.base");

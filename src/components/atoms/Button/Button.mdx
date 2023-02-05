@@ -12,18 +12,20 @@ You know what a button is, I bet!
   <Story of={ButtonStories.Default} />
 </Canvas>
 
+## Variants
+
 <Canvas>
-  <div
-    style={{
-      display: 'flex',
-      gap: 'var(--spacing-medium)',
-      alignItems: 'center',
-      flexWrap: 'wrap',
-    }}
-  >
-    <Story of={ButtonStories.Primary} />
-    <Story of={ButtonStories.Secondary} />
-  </div>
+  <Story of={ButtonStories.Primary} />
+  <Story of={ButtonStories.Secondary} />
+  <Story of={ButtonStories.Toolbar} />
+</Canvas>
+
+## Sizes
+
+<Canvas>
+  <Story of={ButtonStories.Small} />
+  <Story of={ButtonStories.Medium} />
+  <Story of={ButtonStories.Large} />
 </Canvas>
 
 ## Text
@@ -35,5 +37,18 @@ The easiest way to add text to your button is with the `text` attribute, but we 
 
 <button>Also click me</button>
 ```
+
+## As a link
+
+<Canvas>
+  <Story of={ButtonStories.Link} />
+</Canvas>
+
+## Icons
+
+<Canvas>
+  <Story of={ButtonStories.IconOnly} />
+  <Story of={ButtonStories.TextAndIcon} />
+</Canvas>
 
 <ArgsTable story="Default" />

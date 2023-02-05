@@ -5,14 +5,93 @@
   --button-border-color: var(--foreground);
   --button-border-width: 1px;
   --button-border-radius: var(--border-radius-standard);
+  --button-hover-background: hsla(var(--slate-300-hsl) / 0.25);
+  --button-active-background: hsla(var(--slate-300-hsl) / 0.5);
 }
 
 :where(.button) {
+  --button-padding-block: calc(
+    (var(--button-size) - var(--button-line-height)) / 2 - var(--button-border-width)
+  );
+  --button-outline-width: 0;
+
+  display: flex;
+  align-items: center;
+  width: max-content;
+  padding: var(--button-padding-block);
   border: var(--button-border-width) solid var(--button-border-color);
   border-radius: var(--button-border-radius);
   background: var(--button-background);
   color: var(--button-foreground);
-  appearance: none;
-  text-decoration: none;
   box-shadow: none;
+  outline: var(--button-outline-width) solid var(--focus);
+  outline-offset: 0;
+  font-weight: var(--font-weight-bold);
+  font-size: var(--button-font-size);
+  line-height: var(--button-line-height);
+  text-decoration: none;
+  cursor: pointer;
+  transition: all var(--timing-standard) var(--easing-standard);
+  appearance: none;
+
+  :where(.button__text) {
+    padding-inline: calc(var(--button-padding-inline) - var(--button-padding-block));
+  }
+
+  &:where(:hover:not(:disabled, [aria-disabled])) {
+    background: var(--button-hover-background);
+  }
+
+  &:where(:focus-visible) {
+    --button-outline-width: var(--focus-width);
+  }
+
+  &:where(:active) {
+    background: var(--button-active-background);
+  }
+
+  &:where([data-size="small"]) {
+    --button-size: var(--size-button-small);
+    --button-font-size: var(--font-size-small);
+    --button-line-height: var(--line-height-medium);
+    --button-padding-inline: calc(var(--spacing-small) - var(--button-border-width));
+  }
+
+  &:where([data-size="medium"]) {
+    --button-size: var(--size-button-medium);
+    --button-font-size: var(--font-size-medium);
+    --button-line-height: var(--line-height-medium);
+    --button-padding-inline: calc(var(--spacing-medium) - var(--button-border-width));
+  }
+
+  &:where([data-size="large"]) {
+    --button-size: var(--size-button-large);
+    --button-font-size: var(--font-size-large);
+    --button-line-height: var(--line-height-large);
+    --button-padding-inline: calc(var(--spacing-large) - var(--button-border-width));
+    --button-border-width: 2px;
+    --button-border-radius: var(--border-radius-large);
+    --icon-size: var(--line-height-large);
+  }
+
+  &:where([data-variant="primary"]) {
+    --button-background: var(--accent);
+    --button-foreground: var(--accent-inverse);
+    --button-border-width: 0px;
+    --button-hover-background: var(--accent-light);
+    --button-active-background: var(--accent-dark);
+  }
+
+  &:where([data-variant="toolbar"]) {
+    --button-border-width: 0px;
+  }
+
+  &:where(:disabled, [aria-disabled]) {
+    opacity: var(--disabled-opacity);
+    cursor: not-allowed;
+  }
+
+  &:where(:has(.icon:only-child)) {
+    border-radius: 50%;
+  }
 }
