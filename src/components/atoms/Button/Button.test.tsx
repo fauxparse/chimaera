@@ -1,6 +1,7 @@
 import { ComponentPropsWithoutRef } from 'react';
 import { render, screen } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
+import { axe } from 'vitest-axe';
 
 import Button from '.';
 
@@ -8,6 +9,11 @@ describe('Button', () => {
   it('renders a button by default', () => {
     render(<Button>button</Button>);
     expect(screen.getByRole('button').tagName).toBe('BUTTON');
+  });
+
+  it('has no accessibility violations', async () => {
+    const { container } = render(<Button text="button" />);
+    expect(await axe(container)).toHaveNoViolations();
   });
 
   it('can render a link', () => {
@@ -51,5 +57,12 @@ describe('Button', () => {
   it('has a loading state', () => {
     render(<Button loading text="button" />);
     expect(screen.queryByRole('button')).not.toBeInTheDocument();
+  });
+
+  describe('primary', () => {
+    it('has no accessibility violations', async () => {
+      const { container } = render(<Button primary large text="button" />);
+      expect(await axe(container)).toHaveNoViolations();
+    });
   });
 });

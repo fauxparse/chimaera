@@ -4,9 +4,9 @@
   --spacing-medium: token("spacing.medium");
   --spacing-large: token("spacing.large");
   --icon-size: token("size.icon");
-  --size-button-small: token("size.button.small");
-  --size-button-medium: token("size.button.medium");
-  --size-button-large: token("size.button.large");
+  --button-size-small: token("size.button.small");
+  --button-size-medium: token("size.button.medium");
+  --button-size-large: token("size.button.large");
   --focus-width: token("size.focus");
   --border-width-standard: token("border.width.standard");
   --border-radius-standard: token("border.radius.standard");

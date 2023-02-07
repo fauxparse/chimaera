@@ -4,6 +4,12 @@
 @import "./styles/transitions/transitions.css";
 @import "./styles/themes/index.css";
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 :root {
   font-size: token("size.base");
 }

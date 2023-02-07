@@ -13,11 +13,13 @@ export default defineConfig({
   },
   test: {
     globals: true,
+    css: true,
     environment: 'jsdom',
     setupFiles: './src/tests/setup.ts',
     coverage: {
       exclude: [...configDefaults.coverage.exclude, '**/tests/setup.ts'],
     },
+    threads: false,
   },
   build: {
     minify: false,

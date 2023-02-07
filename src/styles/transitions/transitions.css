@@ -2,6 +2,12 @@
   --easing-standard: cubic-bezier(0.4, 0, 0.2, 1);
   --easing-bounce-in: cubic-bezier(0.2, -0.8, 0.4, 1);
   --easing-bounce-out: cubic-bezier(0.6, 0, 0.4, 1.5);
-  --timing-fast: 150ms;
+  --ease-squish-1: cubic-bezier(0.5, -0.1, 0.1, 1.5);
+  --ease-squish-2: cubic-bezier(0.5, -0.3, 0.1, 1.5);
+  --ease-squish-3: cubic-bezier(0.5, -0.5, 0.1, 1.5);
+  --ease-squish-4: cubic-bezier(0.5, -0.7, 0.1, 1.5);
+  --ease-squish-5: cubic-bezier(0.5, -0.9, 0.1, 1.5);
+  --timing-fast: 100ms;
   --timing-standard: 150ms;
+  --timing-slow: 300ms;
 }

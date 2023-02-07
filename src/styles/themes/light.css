@@ -4,4 +4,6 @@
   --foreground: var(--slate-800);
   --skeleton-base: var(--slate-200);
   --skeleton-highlight: var(--slate-100);
+  --input-inactive: var(--slate-300);
+  --input-active: var(--accent);
 }

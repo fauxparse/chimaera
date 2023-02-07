@@ -31,7 +31,8 @@
   line-height: var(--button-line-height);
   text-decoration: none;
   cursor: pointer;
-  transition: all var(--timing-standard) var(--easing-standard);
+  transition: all var(--timing-standard) var(--easing-standard),
+    outline-width var(--timing-slow) var(--ease-squish-5);
   appearance: none;
 
   :where(.button__text) {
@@ -51,21 +52,21 @@
   }
 
   &:where([data-size="small"]) {
-    --button-size: var(--size-button-small);
+    --button-size: var(--button-size-small);
     --button-font-size: var(--font-size-small);
     --button-line-height: var(--line-height-medium);
     --button-padding-inline: calc(var(--spacing-small) - var(--button-border-width));
   }
 
   &:where([data-size="medium"]) {
-    --button-size: var(--size-button-medium);
+    --button-size: var(--button-size-medium);
     --button-font-size: var(--font-size-medium);
     --button-line-height: var(--line-height-medium);
     --button-padding-inline: calc(var(--spacing-medium) - var(--button-border-width));
   }
 
   &:where([data-size="large"]) {
-    --button-size: var(--size-button-large);
+    --button-size: var(--button-size-large);
     --button-font-size: var(--font-size-large);
     --button-line-height: var(--line-height-large);
     --button-padding-inline: calc(var(--spacing-large) - var(--button-border-width));

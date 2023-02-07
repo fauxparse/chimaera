@@ -13,4 +13,9 @@
   --focus: hsl(var(--accent-hsl) / 0.25);
   --disabled-opacity: 0.4;
   --icon-fill-opacity: 0.125;
+  --ltr: 1;
+}
+
+:where(:dir(rtl), [dir="rtl"]) {
+  --ltr: -1;
 }
