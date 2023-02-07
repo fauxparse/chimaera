@@ -10,7 +10,7 @@
   --accent-dark: hsl(var(--accent-dark-hsl));
   --accent-inverse-hsl: var(--rose-50-hsl);
   --accent-inverse: hsl(var(--accent-inverse-hsl));
-  --focus: hsl(var(--accent-hsl) / 0.25);
+  --focus: hsla(var(--accent-hsl) / 0.25);
   --disabled-opacity: 0.4;
   --icon-fill-opacity: 0.125;
   --ltr: 1;

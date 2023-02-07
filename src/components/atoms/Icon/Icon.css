@@ -2,16 +2,17 @@
   width: var(--icon-size);
   height: var(--icon-size);
 
-  :where(.icon__fill) {
-    opacity: var(--icon-fill-opacity);
-    fill: currentColor;
-  }
-
-  :where(.icon__line) {
+  :where(path, rect, circle, .icon__line) {
     fill: none;
     stroke: currentColor;
     stroke-width: 2;
     stroke-linecap: round;
-    stroke-linejoin: 2;
+    stroke-linejoin: round;
+  }
+
+  :where(.icon__fill) {
+    opacity: var(--icon-fill-opacity);
+    fill: currentColor;
+    stroke: none;
   }
 }

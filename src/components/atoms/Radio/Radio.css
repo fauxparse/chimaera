@@ -1,0 +1,83 @@
+:where(.radio, .checkbox) {
+  --focus-scale: 0;
+  --input-outline: var(--input-inactive);
+  position: relative;
+  display: grid;
+  grid: [row] auto / [col] auto;
+  width: max-content;
+  height: max-content;
+  place-items: stretch;
+
+  :where(input, .icon) {
+    grid-row: row;
+    grid-column: column;
+    margin: 0;
+    padding: 0;
+  }
+
+  :where(input) {
+    position: relative;
+    order: 1;
+    cursor: pointer;
+    appearance: none;
+
+    &::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      border-radius: 50%;
+      background: var(--focus);
+      transition: transform var(--timing-slow) var(--ease-squish-4);
+      transform: scale(var(--focus-scale));
+      inset: -0.5rem;
+    }
+
+    &:where(:disabled, [aria-disabled="true"]) {
+      cursor: not-allowed;
+
+      + :where(.icon) {
+        opacity: var(--disabled-opacity);
+      }
+    }
+  }
+
+  :where(.icon) {
+    pointer-events: none;
+    transition: opacity var(--timing-standard) var(--easing-standard);
+  }
+
+  :where(circle) {
+    fill: var(--background);
+    stroke: var(--input-outline);
+  }
+
+  :where(path) {
+    fill: var(--accent-inverse);
+    stroke: none;
+    transition: transform var(--timing-slow) var(--ease-squish-4);
+    transform: scale(0);
+    transform-origin: center;
+  }
+
+  :where(:checked ~ .icon) {
+    --input-outline: var(--input-active);
+
+    :where(circle) {
+      fill: var(--input-active);
+    }
+
+    :where(path) {
+      transform: scale(1);
+    }
+  }
+
+  :where(:hover, :focus-visible, :active):where(:not(:disabled, [aria-disabled="true"])) {
+    --focus-scale: 1;
+    --input-outline: var(--input-active);
+    outline: none;
+
+    ~ .icon {
+      --input-outline: var(--input-active);
+    }
+  }
+}

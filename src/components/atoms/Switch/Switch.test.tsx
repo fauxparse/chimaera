@@ -212,4 +212,16 @@ describe('Switch', () => {
       expect(await axe(container)).toHaveNoViolations();
     });
   });
+
+  describe('with an aria-labelledby attribute', () => {
+    it('has no accessibility violations', async () => {
+      const { container } = render(
+        <>
+          <Switch id="switch" aria-labelledby="label" />
+          <div id="label">Enable</div>
+        </>
+      );
+      expect(await axe(container)).toHaveNoViolations();
+    });
+  });
 });

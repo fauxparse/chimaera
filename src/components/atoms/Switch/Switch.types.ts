@@ -1,3 +1,4 @@
+import { UnwantedInputProps } from '../Radio/Radio.types';
 import { ProtonProps } from '@/components/Proton';
 import { PropsWithVariants } from '@/types/variants';
 
@@ -14,33 +15,7 @@ export const SWITCH_VARIANTS = {
   },
 };
 
-type UnwantedInputProps =
-  | 'accept'
-  | 'alt'
-  | 'capture'
-  | 'dirname'
-  | 'formaction'
-  | 'formenctype'
-  | 'formmethod'
-  | 'formnovalidate'
-  | 'formtarget'
-  | 'height'
-  | 'list'
-  | 'max'
-  | 'maxlength'
-  | 'min'
-  | 'minlength'
-  | 'multiple'
-  | 'pattern'
-  | 'placeholder'
-  | 'readonly'
-  | 'size'
-  | 'src'
-  | 'step'
-  | 'type'
-  | 'width';
-
-export type SwitchProps = Omit<ProtonProps<'input'>, UnwantedInputProps> &
+export type SwitchProps = Omit<ProtonProps<'input'>, UnwantedInputProps | 'type'> &
   PropsWithVariants<typeof SWITCH_VARIANTS> & {
     indeterminate?: boolean;
   };
