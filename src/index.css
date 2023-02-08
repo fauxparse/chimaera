@@ -1,8 +1,9 @@
 @import "./styles/sizes.css";
 @import "./styles/colors/colors.css";
+@import "./styles/themes/index.css";
+@import "./styles/shadows/shadows.css";
 @import "./styles/typography/typography.css";
 @import "./styles/transitions/transitions.css";
-@import "./styles/themes/index.css";
 
 *,
 *::before,

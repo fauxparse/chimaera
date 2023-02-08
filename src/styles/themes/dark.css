@@ -5,4 +5,5 @@
   --skeleton-highlight: var(--slate-600);
   --input-inactive: var(--slate-500);
   --input-active: var(--accent);
+  --shadow-hsl: 0 0% 0%;
 }

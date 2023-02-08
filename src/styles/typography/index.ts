@@ -4,6 +4,7 @@ export enum FontSize {
   TINY = 'tiny',
   SMALL = 'small',
   MEDIUM = 'medium',
+  LARGE = 'large',
 }
 
 const BASE = parseInt(TOKENS.size.base, 10);

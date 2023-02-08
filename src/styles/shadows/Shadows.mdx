@@ -1,0 +1,47 @@
+import { Fragment } from 'react';
+import { Canvas, Meta } from '@storybook/blocks';
+import { range } from 'lodash-es';
+
+<Meta title="Styles/Shadows" />
+
+<style>
+  {`
+    .shadows {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, 8rem);
+      grid-gap: var(--spacing-large);
+    }
+
+    .shadows h3 {
+      grid-column: 1 / -1;
+    }
+
+    .shadow-box {
+      display: grid;
+      place-items: center;
+      width: 8rem;
+      aspect-ratio: 1;
+      border-radius: var(--border-radius-large);
+      font-size: var(font-size-large);
+    }
+  `}
+</style>
+
+<div className="shadows">
+  <h3>Outer</h3>
+  {range(1, 7).map((i) => (
+    <div key={i} className="shadow-box" style={{ boxShadow: `var(--shadow-${i})` }}>
+      {i}
+    </div>
+  ))}
+  <h3>Inner</h3>
+  {range(5).map((i) => (
+    <div
+      key={`inner-${i}`}
+      className="shadow-box shadow-box--inner"
+      style={{ boxShadow: `var(--inner-shadow-${i})` }}
+    >
+      {i}
+    </div>
+  ))}
+</div>
