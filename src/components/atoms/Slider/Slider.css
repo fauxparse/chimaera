@@ -1,0 +1,54 @@
+:where(.slider) {
+  --slider-track: var(--input-border);
+  --slider-height: var(--button-size-medium);
+  --slider-track-height: var(--spacing-small);
+  --slider-thumb-size: 1.25rem;
+  --slider-thumb-color: var(--input-active);
+  --slider-range-color: var(--input-active);
+  --slider-length: 100px;
+  display: grid;
+  grid: var(--slider-height) / 1fr;
+  padding-inline: calc(var(--slider-thumb-size) / 2);
+
+  &::before {
+    content: "";
+    grid-area: 1 / 1 / 2 / 2;
+    align-self: center;
+    justify-self: stretch;
+    height: var(--slider-track-height);
+    margin: 0 calc(var(--slider-thumb-size) / -2);
+    border-radius: 0.5rem;
+    background: var(--slider-track);
+  }
+
+  :where(.slider__draggable) {
+    --position: 0;
+    grid-row: 1;
+    grid-column: 1;
+    align-self: center;
+    justify-self: flex-start;
+    cursor: pointer;
+    transform: translateX(calc(var(--position) * var(--slider-length)));
+  }
+
+  :where(.slider__thumb) {
+    --focus-width: 0.5rem;
+    width: var(--slider-thumb-size);
+    height: var(--slider-thumb-size);
+    margin: 0 calc(var(--slider-thumb-size) / -2);
+    border-radius: 50%;
+    background: var(--slider-thumb-color);
+    outline: solid 0 var(--focus);
+    transition: outline-width var(--timing-slow) var(--ease-squish-4);
+
+    &:where(:hover, :focus, :active) {
+      outline-width: var(--focus-width);
+    }
+  }
+
+  :where(.slider__range) {
+    width: calc(var(--width) * var(--slider-length));
+    height: var(--slider-track-height);
+    background: var(--slider-range-color);
+  }
+}
