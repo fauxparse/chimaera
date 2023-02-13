@@ -1,0 +1,12 @@
+{
+  "explorer.fileNesting.patterns": {
+    "*.ts": "${capture}.test.ts,${capture}.test.tsx",
+    "*.tsx": "${capture}.test.ts,${capture}.test.tsx,${capture}.types.ts",
+    "*.types.ts": "${capture}.typetest.ts"
+  },
+  "stylelint.snippet": ["css", "postcss"],
+  "stylelint.validate": ["css", "postcss"],
+  "stylelint.packageManager": "yarn",
+  "typescript.tsdk": "node_modules/typescript/lib",
+  "vitest.commandLine": "yarn vitest"
+}
