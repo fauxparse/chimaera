@@ -1,10 +1,15 @@
 :root,
 :where([data-theme="light"]) {
   --background: var(--slate-50);
+  --panel: var(--slate-100);
   --foreground: var(--slate-700);
+  --foreground-secondary: var(--slate-600);
   --skeleton-base: var(--slate-200);
   --skeleton-highlight: var(--slate-100);
+  --input-background: var(--slate-50);
   --input-inactive: var(--slate-300);
+  --input-border: var(--slate-300);
+  --input-placeholder: var(--slate-500);
   --input-active: var(--accent);
   --shadow-hsl: var(--slate-900-hsl);
 }

@@ -9,6 +9,7 @@
   --button-size-large: token("size.button.large");
   --focus-width: token("size.focus");
   --border-width-standard: token("border.width.standard");
+  --border-width-thick: token("border.width.thick");
   --border-radius-standard: token("border.radius.standard");
   --border-radius-large: token("border.radius.large");
 }

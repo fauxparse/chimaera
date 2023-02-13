@@ -1,0 +1,67 @@
+:where(.input) {
+  --input-font-size: var(--font-size-medium);
+  --input-line-height: var(--line-height-medium);
+  --input-border-width: 1px;
+  --input-border-radius: var(--border-radius-standard);
+  --input-padding-block: var(--spacing-small);
+  --input-padding-inline: var(--spacing-medium);
+  --input-foreground: var(--foreground);
+  --input-read-only-background: var(--panel);
+  --input-read-only-foreground: var(--foreground-secondary);
+  width: auto;
+  padding: calc(var(--input-padding-block) - var(--input-border-width))
+    calc(var(--input-padding-inline) - var(--input-border-width));
+  border: var(--input-border-width) solid var(--input-border);
+  border-radius: var(--input-border-radius);
+  background-color: var(--input-background);
+  color: var(--input-foreground);
+  outline: 0 solid var(--focus);
+  font-size: var(--input-font-size);
+  line-height: var(--input-line-height);
+  transition: outline-width var(--timing-slow) var(--ease-squish-5);
+
+  &:where([data-size="small"]) {
+    --input-padding-block: var(--spacing-tiny);
+    --input-padding-inline: var(--spacing-small);
+    --input-font-size: var(--font-size-small);
+    --input-line-height: var(--line-height-small);
+  }
+
+  &:where([data-size="medium"]) {
+    --input-padding-block: var(--spacing-small);
+    --input-padding-inline: var(--spacing-medium);
+    --input-font-size: var(--font-size-medium);
+    --input-line-height: var(--line-height-medium);
+  }
+
+  &:where([data-size="large"]) {
+    --input-padding-block: var(--spacing-medium);
+    --input-padding-inline: var(--spacing-large);
+    --input-font-size: var(--font-size-large);
+    --input-line-height: var(--line-height-large);
+    --input-border-radius: var(--border-radius-large);
+  }
+
+  &:where(:focus, :hover) {
+    border-color: var(--input-active);
+  }
+
+  &:where(:focus) {
+    outline-width: var(--focus-width);
+  }
+
+  &:where(:disabled) {
+    background-color: var(--input-border);
+    opacity: var(--disabled-opacity);
+  }
+
+  &:where([readonly]) {
+    background-color: var(--input-read-only-background);
+    color: var(--input-read-only-foreground);
+    outline-width: 0;
+  }
+
+  &::placeholder {
+    color: var(--input-placeholder);
+  }
+}

@@ -21,6 +21,7 @@
   },
   "devDependencies": {
     "@daltontan/postcss-import-json": "^1.1.0",
+    "@storybook/addon-a11y": "^7.0.0-beta.45",
     "@storybook/addon-essentials": "^7.0.0-beta.36",
     "@storybook/addon-interactions": "^7.0.0-beta.36",
     "@storybook/addon-links": "^7.0.0-beta.36",
