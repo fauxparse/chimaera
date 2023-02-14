@@ -16,6 +16,8 @@ type DraggableProps = Omit<ComponentPropsWithoutRef<'span'>, 'onChange'> & {
   value: number;
   width?: number;
   onChange: (value: number) => void;
+  onStartDrag?: () => void;
+  onEndDrag?: () => void;
 };
 
 const getStyle = (element: HTMLElement, prop: string, defaultValue = 0): number => {
@@ -25,7 +27,10 @@ const getStyle = (element: HTMLElement, prop: string, defaultValue = 0): number 
 };
 
 const Draggable = forwardRef<HTMLSpanElement, DraggableProps>(
-  ({ className, value, width = 0, onChange, style = {}, ...props }, ref) => {
+  (
+    { className, value, width = 0, onChange, onStartDrag, onEndDrag, style = {}, ...props },
+    ref
+  ) => {
     const { min, max, step, jump } = useContext(SliderContext);
 
     const draggable = useRef<HTMLSpanElement>(null);
@@ -82,16 +87,19 @@ const Draggable = forwardRef<HTMLSpanElement, DraggableProps>(
           });
           track.removeEventListener('pointermove', pointerMove);
           window.removeEventListener('pointerup', pointerUp);
+          onEndDrag?.();
         };
 
         track.addEventListener('pointermove', pointerMove);
         window.addEventListener('pointerup', pointerUp, { once: true });
+
+        onStartDrag?.();
       };
 
       el.addEventListener('pointerdown', pointerDown);
 
       return () => el.removeEventListener('pointerdown', pointerDown);
-    }, [min, max, width, onChange]);
+    }, [min, max, width, onChange, onStartDrag, onEndDrag]);
 
     useEffect(() => {
       /* c8 ignore next */

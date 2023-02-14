@@ -5,6 +5,7 @@ type SliderContext = {
   max: number;
   step: number;
   jump: number;
+  onFormatValue: (value: number) => string;
 };
 
 export default createContext({} as SliderContext);

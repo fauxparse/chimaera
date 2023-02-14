@@ -26,7 +26,11 @@ export default {
       },
     },
   },
-  args: {},
+  args: {
+    style: {
+      marginTop: '4rem',
+    },
+  },
   render: function Render(args: SliderProps) {
     const [value, setValue] = useState(args.value as SingleValue);
     return <Slider {...args} value={value} onChange={setValue} />;

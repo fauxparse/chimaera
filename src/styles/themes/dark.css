@@ -12,4 +12,6 @@
   --input-active: var(--accent);
   --shadow-hsl: 0 0% 0%;
   --focus: hsla(var(--accent-hsl) / 0.5);
+  --tooltip-background: var(--amber-800);
+  --tooltip-foreground: var(--amber-100);
 }

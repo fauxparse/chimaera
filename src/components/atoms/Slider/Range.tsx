@@ -47,6 +47,14 @@ const Range = forwardRef<HTMLSpanElement, RangeProps>(({ range, style, onChange 
     el.style.setProperty('--width', ((end - start) / (max - min)).toString());
   }, [start, end, min, max]);
 
+  const startDrag = useCallback(() => {
+    draggable.current?.parentElement?.style?.setProperty('--dragging', '1');
+  }, []);
+
+  const endDrag = useCallback(() => {
+    draggable.current?.parentElement?.style?.removeProperty('--dragging');
+  }, []);
+
   return (
     <Draggable
       ref={mergeRefs([ref, draggable])}
@@ -54,6 +62,8 @@ const Range = forwardRef<HTMLSpanElement, RangeProps>(({ range, style, onChange 
       value={start}
       width={end - start}
       onChange={changed}
+      onStartDrag={startDrag}
+      onEndDrag={endDrag}
       style={{ ...style, '--width': `${(end - start) / (max - min)}` } as CSSProperties}
     />
   );

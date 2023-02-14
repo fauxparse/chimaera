@@ -22,6 +22,7 @@ type BaseSliderProps = Omit<ProtonProps, 'onChange'> & {
   max?: number;
   step?: number;
   jump?: number;
+  onFormatValue?: (value: number) => string;
 };
 
 export type SingleSliderProps = BaseSliderProps & SingleSlider;

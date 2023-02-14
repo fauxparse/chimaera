@@ -9,7 +9,7 @@ type ThumbProps = {
 };
 
 const Thumb: React.FC<ThumbProps> = ({ value, onChange }) => {
-  const { min, max } = useContext(SliderContext);
+  const { min, max, onFormatValue } = useContext(SliderContext);
 
   return (
     <Draggable
@@ -21,6 +21,7 @@ const Thumb: React.FC<ThumbProps> = ({ value, onChange }) => {
       aria-valuemin={min}
       aria-valuemax={max}
       aria-valuenow={value}
+      data-value={onFormatValue(value)}
     />
   );
 };
