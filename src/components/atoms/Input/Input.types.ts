@@ -1,4 +1,4 @@
-import { ElementType, ReactElement } from 'react';
+import { ComponentProps, ElementType, ReactElement } from 'react';
 
 import { ProtonProps } from '@/components/Proton';
 import { WithDisplayName } from '@/types/polymorphic.types';
@@ -19,7 +19,8 @@ export const INPUT_VARIANTS = {
 
 export type AllInputVariants = PropsWithVariants<typeof INPUT_VARIANTS>;
 
-export type InputProps<C extends ElementType = 'input'> = ProtonProps<C> & AllInputVariants;
+export type InputProps<C extends ElementType = 'input'> = Omit<ProtonProps<C>, 'size'> &
+  AllInputVariants & { htmlSize?: ComponentProps<C>['size'] };
 
 export type InputComponent = WithDisplayName<
   <C extends ElementType = 'input'>(props: InputProps<C>) => ReactElement | null

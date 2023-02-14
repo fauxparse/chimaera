@@ -17,9 +17,21 @@ export const Input: InputComponent = forwardRef(({ as, iconBefore, iconAfter, ..
 
   const { size: inputGroupSize } = useContext(InputGroupContext);
 
-  const { size, ...inputProps } = useCustomInput(props, inputGroupSize || InputSize.MEDIUM);
+  const { size, htmlSize, ...inputProps } = useCustomInput(
+    props,
+    inputGroupSize || InputSize.MEDIUM
+  );
 
-  return <Proton as={Component} ref={ref} baseClassName="input" data-size={size} {...inputProps} />;
+  return (
+    <Proton
+      as={Component}
+      ref={ref}
+      baseClassName="input"
+      size={htmlSize || undefined}
+      data-size={size}
+      {...inputProps}
+    />
+  );
 });
 
 Input.displayName = 'Input';
