@@ -25,7 +25,7 @@ export const Slider = forwardRef<HTMLDivElement, SliderProps>((props, ref) => {
 
   const isRanged = isRangeSlider(props);
 
-  const { min, max, value, onChange, ...otherProps } = props;
+  const { min, max, step = 1, jump = 10, value, onChange, ...otherProps } = props;
 
   const [flipped, setFlipped] = useState(false);
 
@@ -68,7 +68,7 @@ export const Slider = forwardRef<HTMLDivElement, SliderProps>((props, ref) => {
   }, []);
 
   return (
-    <SliderContext.Provider value={{ min, max }}>
+    <SliderContext.Provider value={{ min, max, step, jump }}>
       <Proton baseClassName="slider" ref={mergeRefs([ref, ownRef])} {...otherProps}>
         {isRanged && <Range range={values as RangeValue} onChange={dispatch} />}
         {values.map((value, index) => (

@@ -2,6 +2,7 @@ import {
   ComponentPropsWithoutRef,
   CSSProperties,
   forwardRef,
+  useCallback,
   useContext,
   useEffect,
   useRef,
@@ -24,7 +25,7 @@ const getStyle = (element: HTMLElement, prop: string, defaultValue = 0): number 
 
 const Draggable = forwardRef<HTMLSpanElement, DraggableProps>(
   ({ className, value, width = 0, onChange, style = {}, ...props }, ref) => {
-    const { min, max } = useContext(SliderContext);
+    const { min, max, step, jump } = useContext(SliderContext);
 
     const draggable = useRef<HTMLSpanElement>(null);
 
@@ -97,11 +98,53 @@ const Draggable = forwardRef<HTMLSpanElement, DraggableProps>(
       draggable.current.style.setProperty('--position', position.current.toString());
     }, [value, min, max]);
 
+    const keyDown = useCallback(
+      (e: React.KeyboardEvent<HTMLSpanElement>) => {
+        const direction = getStyle(e.currentTarget, '--ltr');
+
+        const changed = (delta: number) => {
+          const newValue = Math.max(min, Math.min(max, value + delta));
+          if (newValue !== value) {
+            onChange(newValue);
+          }
+        };
+
+        switch (e.key) {
+          case 'ArrowLeft':
+            changed(step * -direction);
+            break;
+          case 'ArrowRight':
+            changed(step * direction);
+            break;
+          case 'ArrowUp':
+            changed(step);
+            break;
+          case 'ArrowDown':
+            changed(-step);
+            break;
+          case 'PageUp':
+            changed(jump);
+            break;
+          case 'PageDown':
+            changed(-jump);
+            break;
+          case 'Home':
+            changed(-value);
+            break;
+          case 'End':
+            changed(max - value);
+            break;
+        }
+      },
+      [min, max, value, onChange, step, jump]
+    );
+
     return (
       <span
         ref={mergeRefs([ref, draggable])}
         className={clsx('slider__draggable', className)}
         style={{ ...style, '--position': position.current } as CSSProperties}
+        onKeyDown={keyDown}
         {...props}
       />
     );
