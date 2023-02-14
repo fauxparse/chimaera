@@ -9,3 +9,13 @@ import * as SliderStories from './Slider.stories';
 <Canvas>
   <Story of={SliderStories.Default} />
 </Canvas>
+
+## Ranged sliders
+
+To make a ranged slider, pass a two-element `[number, number]` tuple to the `value` prop.
+Your `onChange` handler must also accept a value of the same type.
+
+> The values passed to `onChange` will always be in order,
+> regardless of whether the thumbs have switched positions.
+
+<ArgsTable story="Default" />

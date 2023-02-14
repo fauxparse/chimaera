@@ -18,8 +18,8 @@ type RangeSlider = {
 };
 
 type BaseSliderProps = Omit<ProtonProps, 'onChange'> & {
-  min: number;
-  max: number;
+  min?: number;
+  max?: number;
   step?: number;
   jump?: number;
 };

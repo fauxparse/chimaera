@@ -29,3 +29,5 @@ Object.defineProperties(MouseEvent.prototype, {
     },
   },
 });
+
+global.ResizeObserver = require('resize-observer-polyfill');

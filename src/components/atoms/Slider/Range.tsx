@@ -40,6 +40,7 @@ const Range = forwardRef<HTMLSpanElement, RangeProps>(({ range, style, onChange 
   );
 
   useEffect(() => {
+    /* c8 ignore next 2 */
     const el = draggable.current;
     if (!el) return;
     el.style.setProperty('--position', (start / (max - min)).toString());

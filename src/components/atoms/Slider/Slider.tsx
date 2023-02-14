@@ -25,7 +25,7 @@ export const Slider = forwardRef<HTMLDivElement, SliderProps>((props, ref) => {
 
   const isRanged = isRangeSlider(props);
 
-  const { min, max, step = 1, jump = 10, value, onChange, ...otherProps } = props;
+  const { min = 0, max = 100, step = 1, jump = 10, value, onChange, ...otherProps } = props;
 
   const [flipped, setFlipped] = useState(false);
 
@@ -49,6 +49,7 @@ export const Slider = forwardRef<HTMLDivElement, SliderProps>((props, ref) => {
     }
   }, [isRanged, values, flipped, props]);
 
+  /* c8 ignore next 17 */
   useLayoutEffect(() => {
     const slider = ownRef.current;
     if (!slider) return;

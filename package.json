@@ -59,6 +59,7 @@
     "postcss-nested": "^6.0.0",
     "prettier": "^2.7.1",
     "prop-types": "^15.8.1",
+    "resize-observer-polyfill": "^1.5.1",
     "storybook": "^7.0.0-beta.36",
     "storybook-dark-mode": "^2.0.5",
     "stylelint": "^14.1.0",

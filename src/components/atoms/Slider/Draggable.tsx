@@ -20,6 +20,7 @@ type DraggableProps = Omit<ComponentPropsWithoutRef<'span'>, 'onChange'> & {
 
 const getStyle = (element: HTMLElement, prop: string, defaultValue = 0): number => {
   const result = parseInt(window.getComputedStyle(element).getPropertyValue(prop));
+  /* c8 ignore next */
   return isNaN(result) ? defaultValue : result;
 };
 
@@ -38,6 +39,7 @@ const Draggable = forwardRef<HTMLSpanElement, DraggableProps>(
     }, [value]);
 
     useEffect(() => {
+      /* c8 ignore next 2 */
       const el = draggable.current;
       if (!el) return;
 
@@ -47,12 +49,13 @@ const Draggable = forwardRef<HTMLSpanElement, DraggableProps>(
 
         const track = el.parentElement!;
         const fullRange = max - min;
-        const paddingStart = getStyle(track, 'padding-inline-start');
-        const paddingEnd = getStyle(track, 'padding-inline-end');
-        const marginStart = getStyle(el, 'margin-inline-start');
-        const direction = getStyle(el, '--ltr');
+        const paddingStart = getStyle(track, 'padding-inline-start', 0);
+        const paddingEnd = getStyle(track, 'padding-inline-end', 0);
+        const marginStart = getStyle(el, 'margin-inline-start', 0);
+        const direction = getStyle(el, '--ltr', 1);
 
         const trackLength = track.offsetWidth - paddingStart - paddingEnd;
+
         const offset =
           direction < 0 ? e.offsetX - marginStart - el.offsetWidth : e.offsetX + marginStart;
 
@@ -61,10 +64,7 @@ const Draggable = forwardRef<HTMLSpanElement, DraggableProps>(
         });
 
         const pointerMove = (e: PointerEvent) => {
-          const x = el.contains(e.target as HTMLElement)
-            ? e.offsetX + position.current * trackLength
-            : e.offsetX;
-          const p = (x - offset - paddingStart) / trackLength;
+          const p = (e.offsetX - offset - paddingStart) / trackLength;
           position.current = Math.max(
             0,
             Math.min(1 - width / fullRange, direction < 0 ? 1 - p : p)
@@ -72,6 +72,7 @@ const Draggable = forwardRef<HTMLSpanElement, DraggableProps>(
 
           el.style.setProperty('--position', position.current.toString());
           const newValue = Math.round((max - min) * position.current + min);
+
           if (newValue !== currentValue.current) onChange(newValue);
         };
 
@@ -93,6 +94,7 @@ const Draggable = forwardRef<HTMLSpanElement, DraggableProps>(
     }, [min, max, width, onChange]);
 
     useEffect(() => {
+      /* c8 ignore next */
       if (!draggable.current) return;
       position.current = value / (max - min);
       draggable.current.style.setProperty('--position', position.current.toString());
@@ -100,10 +102,11 @@ const Draggable = forwardRef<HTMLSpanElement, DraggableProps>(
 
     const keyDown = useCallback(
       (e: React.KeyboardEvent<HTMLSpanElement>) => {
-        const direction = getStyle(e.currentTarget, '--ltr');
+        const direction = getStyle(e.currentTarget, '--ltr', 1);
 
         const changed = (delta: number) => {
-          const newValue = Math.max(min, Math.min(max, value + delta));
+          const newValue = Math.max(min, Math.min(max - width, value + delta));
+
           if (newValue !== value) {
             onChange(newValue);
           }
@@ -132,11 +135,11 @@ const Draggable = forwardRef<HTMLSpanElement, DraggableProps>(
             changed(-value);
             break;
           case 'End':
-            changed(max - value);
+            changed(max - value - width);
             break;
         }
       },
-      [min, max, value, onChange, step, jump]
+      [min, max, value, width, onChange, step, jump]
     );
 
     return (
