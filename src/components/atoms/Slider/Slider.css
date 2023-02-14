@@ -28,7 +28,7 @@
     align-self: center;
     justify-self: flex-start;
     cursor: pointer;
-    transform: translateX(calc(var(--position) * var(--slider-length)));
+    transform: translateX(calc(var(--position) * var(--slider-length) * var(--ltr)));
   }
 
   :where(.slider__thumb) {

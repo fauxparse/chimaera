@@ -54,3 +54,15 @@ export const Ranged: Story = {
     return <Slider {...args} value={value} onChange={setValue} />;
   },
 };
+
+export const RTL: Story = {
+  args: {
+    value: [10, 60] satisfies RangeValue,
+    min: 0,
+    max: 100,
+  },
+  render: function Render(args: SliderProps) {
+    const [value, setValue] = useState(args.value as RangeValue);
+    return <Slider dir="rtl" {...args} value={value} onChange={setValue} />;
+  },
+};

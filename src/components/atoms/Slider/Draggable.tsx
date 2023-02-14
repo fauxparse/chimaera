@@ -49,9 +49,11 @@ const Draggable = forwardRef<HTMLSpanElement, DraggableProps>(
         const paddingStart = getStyle(track, 'padding-inline-start');
         const paddingEnd = getStyle(track, 'padding-inline-end');
         const marginStart = getStyle(el, 'margin-inline-start');
+        const direction = getStyle(el, '--ltr');
 
         const trackLength = track.offsetWidth - paddingStart - paddingEnd;
-        const offset = e.offsetX + marginStart;
+        const offset =
+          direction < 0 ? e.offsetX - marginStart - el.offsetWidth : e.offsetX + marginStart;
 
         track.querySelectorAll('.slider__draggable').forEach((el) => {
           (el as HTMLElement).style.setProperty('pointer-events', 'none');
@@ -61,10 +63,12 @@ const Draggable = forwardRef<HTMLSpanElement, DraggableProps>(
           const x = el.contains(e.target as HTMLElement)
             ? e.offsetX + position.current * trackLength
             : e.offsetX;
+          const p = (x - offset - paddingStart) / trackLength;
           position.current = Math.max(
             0,
-            Math.min(1 - width / fullRange, (x - offset - paddingStart) / trackLength)
+            Math.min(1 - width / fullRange, direction < 0 ? 1 - p : p)
           );
+
           el.style.setProperty('--position', position.current.toString());
           const newValue = Math.round((max - min) * position.current + min);
           if (newValue !== currentValue.current) onChange(newValue);
