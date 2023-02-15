@@ -1,0 +1,100 @@
+:where(.slider) {
+  --slider-track: var(--input-border);
+  --slider-height: var(--button-size-medium);
+  --slider-track-height: var(--spacing-small);
+  --slider-thumb-size: 1.25rem;
+  --slider-thumb-color: var(--input-active);
+  --slider-range-color: var(--input-active);
+  --slider-length: 100px;
+  --dragging: 0;
+  display: grid;
+  grid: var(--slider-height) / 1fr;
+  padding-inline: calc(var(--slider-thumb-size) / 2);
+
+  &::before {
+    content: "";
+    grid-area: 1 / 1 / 2 / 2;
+    align-self: center;
+    justify-self: stretch;
+    height: var(--slider-track-height);
+    margin: 0 calc(var(--slider-thumb-size) / -2);
+    border-radius: 0.5rem;
+    background: var(--slider-track);
+  }
+
+  :where(.slider__draggable) {
+    --position: 0;
+    grid-row: 1;
+    grid-column: 1;
+    align-self: center;
+    justify-self: flex-start;
+    cursor: pointer;
+    transform: translateX(calc(var(--position) * var(--slider-length) * var(--ltr)));
+  }
+
+  :where(.slider__thumb) {
+    --focus-width: 0.5rem;
+    position: relative;
+    width: var(--slider-thumb-size);
+    height: var(--slider-thumb-size);
+    margin: 0 calc(var(--slider-thumb-size) / -2);
+    border-radius: 50%;
+    background: var(--slider-thumb-color);
+    outline: solid 0 var(--focus);
+    transition: outline-width var(--timing-slow) var(--ease-squish-4);
+
+    &::before,
+    &::after {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      opacity: var(--dragging);
+      transition: transform var(--timing-slow) var(--ease-squish-4),
+        opacity var(--timing-standard) var(--easing-standard);
+    }
+
+    &::after {
+      content: attr(data-value);
+      padding: var(--spacing-tiny) var(--spacing-small);
+      border-radius: var(--border-radius-standard);
+      background: var(--tooltip-background);
+      color: var(--tooltip-foreground);
+      font-size: var(--font-size-small);
+      line-height: var(--line-height-small);
+      transform: translate(
+          -50%,
+          calc(
+            (1 - var(--dragging)) * var(--spacing-small) - var(--dragging) * var(--spacing-medium)
+          )
+        )
+        scale(var(--dragging));
+    }
+
+    &::before {
+      content: "";
+      width: var(--spacing-small);
+      height: var(--spacing-small);
+      border-bottom-right-radius: 0.125rem;
+      background: var(--tooltip-background);
+      transform: translate(
+          -50%,
+          calc(
+            (1 - var(--dragging)) * var(--spacing-small) * -1 + var(--dragging) *
+              (var(--spacing-medium) * -1 + 50%)
+          )
+        )
+        rotate(45deg) scale(var(--dragging));
+    }
+
+    &:where(:hover, :focus, :active) {
+      --dragging: 1;
+      outline-width: var(--focus-width);
+    }
+  }
+
+  :where(.slider__range) {
+    width: calc(var(--width) * var(--slider-length));
+    height: var(--slider-track-height);
+    background: var(--slider-range-color);
+  }
+}

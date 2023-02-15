@@ -12,4 +12,6 @@
   --input-placeholder: var(--slate-500);
   --input-active: var(--accent);
   --shadow-hsl: var(--slate-900-hsl);
+  --tooltip-background: var(--amber-200);
+  --tooltip-foreground: var(--amber-900);
 }
