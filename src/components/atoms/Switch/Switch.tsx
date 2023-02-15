@@ -2,9 +2,10 @@ import { forwardRef, useEffect, useRef } from 'react';
 import { mergeRefs } from 'react-merge-refs';
 
 import Proton from '@/components/Proton';
+import { Orientation } from '@/types/orientation';
 import { extractVariants } from '@/types/variants';
 
-import { SWITCH_VARIANTS, SwitchOrientation, SwitchProps } from './Switch.types';
+import { SWITCH_VARIANTS, SwitchProps } from './Switch.types';
 import useDragInteraction from './useDragInteraction';
 
 import './Switch.css';
@@ -13,7 +14,7 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
   ({ skeletonProps = {}, indeterminate, ...props }, ref) => {
     const ownRef = useRef<HTMLInputElement>(null);
 
-    const { orientation = SwitchOrientation.HORIZONTAL, ...switchProps } = extractVariants(
+    const { orientation = Orientation.HORIZONTAL, ...switchProps } = extractVariants(
       SWITCH_VARIANTS,
       props
     );

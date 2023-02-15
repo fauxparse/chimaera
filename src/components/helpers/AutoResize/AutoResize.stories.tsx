@@ -8,7 +8,7 @@ import AutoResize from './AutoResize';
 type Story = StoryObj<typeof AutoResize>;
 
 export default {
-  title: 'Atoms/AutoResize',
+  title: 'Helpers/AutoResize',
   component: AutoResize,
 };
 
