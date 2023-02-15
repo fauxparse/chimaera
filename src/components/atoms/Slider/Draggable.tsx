@@ -76,7 +76,7 @@ const Draggable = forwardRef<HTMLSpanElement, DraggableProps>(
           );
 
           el.style.setProperty('--position', position.current.toString());
-          const newValue = Math.round((max - min) * position.current + min);
+          const newValue = Math.round(((max - min) * position.current) / step) + min;
 
           if (newValue !== currentValue.current) onChange(newValue);
         };
@@ -99,7 +99,7 @@ const Draggable = forwardRef<HTMLSpanElement, DraggableProps>(
       el.addEventListener('pointerdown', pointerDown);
 
       return () => el.removeEventListener('pointerdown', pointerDown);
-    }, [min, max, width, onChange, onStartDrag, onEndDrag]);
+    }, [min, max, step, width, onChange, onStartDrag, onEndDrag]);
 
     useEffect(() => {
       /* c8 ignore next */
@@ -143,6 +143,7 @@ const Draggable = forwardRef<HTMLSpanElement, DraggableProps>(
             changed(-value);
             break;
           case 'End':
+            // Because changed takes a delta, we need to calculate the difference
             changed(max - value - width);
             break;
         }
