@@ -1,8 +1,10 @@
 import { CSSProperties } from 'react';
 import type { StoryObj } from '@storybook/react';
 
+import { Orientation } from '@/types/orientation';
+
 import Switch from './Switch';
-import { SwitchOrientation, SwitchProps } from './Switch.types';
+import { SwitchProps } from './Switch.types';
 
 type Story = StoryObj<typeof Switch>;
 
@@ -30,7 +32,7 @@ export default {
 
 export const Default: Story = {
   args: {
-    orientation: SwitchOrientation.HORIZONTAL,
+    orientation: Orientation.HORIZONTAL,
   },
 };
 
@@ -71,7 +73,7 @@ export const RTL: Story = {
 
 export const Vertical: Story = {
   args: {
-    orientation: SwitchOrientation.VERTICAL,
+    orientation: Orientation.VERTICAL,
   },
 };
 

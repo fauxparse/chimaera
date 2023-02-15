@@ -1,17 +1,12 @@
 import { UnwantedInputProps } from '../Radio/Radio.types';
 import { ProtonProps } from '@/components/Proton';
+import { Orientation } from '@/types/orientation';
 import { PropsWithVariants } from '@/types/variants';
-
-/* c8 ignore next */
-export enum SwitchOrientation {
-  HORIZONTAL = 'horizontal',
-  VERTICAL = 'vertical',
-}
 
 export const SWITCH_VARIANTS = {
   orientation: {
-    values: SwitchOrientation,
-    defaultValue: SwitchOrientation.HORIZONTAL,
+    values: Orientation,
+    defaultValue: Orientation.HORIZONTAL,
   },
 };
 
