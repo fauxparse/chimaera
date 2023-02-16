@@ -2,18 +2,60 @@
 @import "./dark.css";
 
 :root {
-  --accent-hsl: var(--rose-500-hsl);
-  --accent: hsl(var(--accent-hsl));
-  --accent-light-hsl: var(--rose-400-hsl);
-  --accent-light: hsl(var(--accent-light-hsl));
-  --accent-dark-hsl: var(--rose-700-hsl);
-  --accent-dark: hsl(var(--accent-dark-hsl));
-  --accent-inverse-hsl: var(--rose-50-hsl);
-  --accent-inverse: hsl(var(--accent-inverse-hsl));
-  --focus: hsla(var(--accent-hsl) / 0.25);
   --disabled-opacity: 0.4;
   --icon-fill-opacity: 0.125;
   --ltr: 1;
+}
+
+:where([data-theme]) {
+  --neutral-1: var(--slate-1);
+  --neutral-2: var(--slate-2);
+  --neutral-3: var(--slate-3);
+  --neutral-4: var(--slate-4);
+  --neutral-5: var(--slate-5);
+  --neutral-6: var(--slate-6);
+  --neutral-7: var(--slate-7);
+  --neutral-8: var(--slate-8);
+  --neutral-9: var(--slate-9);
+  --neutral-10: var(--slate-10);
+  --neutral-11: var(--slate-11);
+  --neutral-12: var(--slate-12);
+  --neutral-a-1: var(--slate-a-1);
+  --neutral-a-2: var(--slate-a-2);
+  --neutral-a-3: var(--slate-a-3);
+  --neutral-a-4: var(--slate-a-4);
+  --neutral-a-5: var(--slate-a-5);
+  --neutral-a-6: var(--slate-a-6);
+  --neutral-a-7: var(--slate-a-7);
+  --neutral-a-8: var(--slate-a-8);
+  --neutral-a-9: var(--slate-a-9);
+  --neutral-a-10: var(--slate-a-10);
+  --neutral-a-11: var(--slate-a-11);
+  --neutral-a-12: var(--slate-a-12);
+  --accent-1: var(--crimson-1);
+  --accent-2: var(--crimson-2);
+  --accent-3: var(--crimson-3);
+  --accent-4: var(--crimson-4);
+  --accent-5: var(--crimson-5);
+  --accent-6: var(--crimson-6);
+  --accent-7: var(--crimson-7);
+  --accent-8: var(--crimson-8);
+  --accent-9: var(--crimson-9);
+  --accent-10: var(--crimson-10);
+  --accent-11: var(--crimson-11);
+  --accent-12: var(--crimson-12);
+  --accent-a-1: var(--crimson-a-1);
+  --accent-a-2: var(--crimson-a-2);
+  --accent-a-3: var(--crimson-a-3);
+  --accent-a-4: var(--crimson-a-4);
+  --accent-a-5: var(--crimson-a-5);
+  --accent-a-6: var(--crimson-a-6);
+  --accent-a-7: var(--crimson-a-7);
+  --accent-a-8: var(--crimson-a-8);
+  --accent-a-9: var(--crimson-a-9);
+  --accent-a-10: var(--crimson-a-10);
+  --accent-a-11: var(--crimson-a-11);
+  --accent-a-12: var(--crimson-a-12);
 }
 
 :where(:dir(rtl), [dir="rtl"]) {

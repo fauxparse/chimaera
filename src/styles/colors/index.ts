@@ -1,47 +1,68 @@
 import { TinyColor } from '@ctrl/tinycolor';
-import { uniq } from 'lodash-es';
+import { groupBy, mapValues, uniq } from 'lodash-es';
 
-import COLORS from './colors.json';
+import DARK from './dark.json';
+import LIGHT from './light.json';
 
 export type Hue =
-  | 'slate'
-  | 'gray'
-  | 'zinc'
-  | 'neutral'
-  | 'stone'
+  | 'tomato'
   | 'red'
-  | 'orange'
-  | 'amber'
-  | 'yellow'
-  | 'lime'
-  | 'green'
-  | 'emerald'
-  | 'teal'
-  | 'cyan'
-  | 'sky'
-  | 'blue'
-  | 'indigo'
-  | 'violet'
-  | 'purple'
-  | 'fuchsia'
+  | 'crimson'
   | 'pink'
-  | 'rose';
-type ShadeNumber = 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
-type ShadeString = `${ShadeNumber}`;
+  | 'plum'
+  | 'purple'
+  | 'violet'
+  | 'indigo'
+  | 'blue'
+  | 'cyan'
+  | 'teal'
+  | 'green'
+  | 'grass'
+  | 'orange'
+  | 'brown'
+  | 'sky'
+  | 'mint'
+  | 'lime'
+  | 'yellow'
+  | 'amber'
+  | 'gray'
+  | 'mauve'
+  | 'slate'
+  | 'sage'
+  | 'olive'
+  | 'sand'
+  | 'gold'
+  | 'bronze';
+
+export type Scheme = 'light' | 'dark';
+type ShadeNumber = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+type ShadeString = `${ShadeNumber}` | `a-${ShadeNumber}`;
 export type Shade = ShadeNumber | ShadeString;
 
-export const HUES = uniq(Object.keys(COLORS).map((key) => key.split('-')[0])) as Hue[];
-export const SHADES = uniq(Object.keys(COLORS).map((key) => key.split('-')[1])) as Shade[];
+const PALETTES = mapValues({ light: LIGHT, dark: DARK }, (palette) =>
+  mapValues(
+    groupBy(Object.entries(palette), ([key]) => key.split('-')[0]),
+    (scale) =>
+      Object.fromEntries(
+        scale.map(([key, value]) => [
+          key.split('-').slice(1).join('-') as ShadeString,
+          new TinyColor(value),
+        ])
+      )
+  )
+) as Record<Scheme, Record<Hue, Record<Shade, TinyColor>>>;
+
+export const HUES = Object.keys(PALETTES.light) as Hue[];
+export const SHADES = uniq(
+  Object.values(PALETTES.light).flatMap((scale) => Object.keys(scale))
+) as Shade[];
 
 const isHue = (hue: string): hue is Hue => HUES.includes(hue as Hue);
 const isShade = (shade: string | number): shade is Shade =>
   SHADES.includes(String(shade) as ShadeString);
 
-export function color(hue: Hue, shade: Shade = 500): TinyColor {
+export function color(hue: Hue, shade: Shade = 9, scheme: Scheme = 'light'): TinyColor {
   if (!isHue(hue)) throw new Error(`Invalid hue: ${hue}`);
   if (!isShade(shade)) throw new Error(`Invalid shade: ${shade}`);
-
-  const key = [hue, shade, 'hsl'].join('-');
-
-  return new TinyColor(`hsl(${COLORS[key as keyof typeof COLORS]})`);
+  return PALETTES[scheme][hue][shade];
 }

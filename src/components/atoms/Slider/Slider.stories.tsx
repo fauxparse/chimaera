@@ -30,6 +30,7 @@ export default {
     style: {
       marginTop: '4rem',
     },
+    onFormatValue: String,
   },
   render: function Render(args: SliderProps) {
     const [value, setValue] = useState(args.value as SingleValue);

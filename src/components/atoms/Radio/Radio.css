@@ -52,7 +52,7 @@
   }
 
   :where(path) {
-    fill: var(--accent-inverse);
+    fill: var(--accent-1);
     stroke: none;
     transition: transform var(--timing-slow) var(--ease-squish-4);
     transform: scale(0);

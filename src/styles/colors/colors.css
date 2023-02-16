@@ -1,3 +1,8 @@
-:root {
-  @import-json "./colors.json";
+:root,
+:where([data-theme="light"]) {
+  @import-json "./light.json";
+}
+
+:where([data-theme="dark"]) {
+  @import-json "./dark.json";
 }

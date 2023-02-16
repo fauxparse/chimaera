@@ -28,7 +28,7 @@
       content: "";
       position: absolute;
       border-radius: 1px;
-      background-color: var(--accent-inverse);
+      background-color: var(--accent-1);
       inset: calc(50% - 1px) calc(100% / 3);
     }
   }
@@ -38,7 +38,7 @@
       content: "";
       position: absolute;
       border-radius: 1px;
-      background-color: var(--accent-inverse);
+      background-color: var(--accent-1);
       inset: calc(50% - 1px) calc(100% / 3);
     }
   }

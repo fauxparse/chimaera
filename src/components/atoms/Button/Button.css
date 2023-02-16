@@ -5,8 +5,8 @@
   --button-border-color: var(--foreground);
   --button-border-width: 1px;
   --button-border-radius: var(--border-radius-standard);
-  --button-hover-background: hsla(var(--slate-300-hsl) / 0.25);
-  --button-active-background: hsla(var(--slate-300-hsl) / 0.5);
+  --button-hover-background: var(--neutral-a-4);
+  --button-active-background: var(--neutral-a-5);
 }
 
 :where(.button) {
@@ -76,11 +76,11 @@
   }
 
   &:where([data-variant="primary"]) {
-    --button-background: var(--accent);
-    --button-foreground: var(--accent-inverse);
+    --button-background: var(--accent-9);
+    --button-foreground: var(--accent-1);
     --button-border-width: 0px;
-    --button-hover-background: var(--accent-light);
-    --button-active-background: var(--accent-dark);
+    --button-hover-background: var(--accent-10);
+    --button-active-background: var(--accent-10);
   }
 
   &:where([data-variant="toolbar"]) {

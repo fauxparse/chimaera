@@ -1,17 +1,19 @@
 :root,
 :where([data-theme="light"]) {
-  --background: var(--slate-50);
-  --panel: var(--slate-100);
-  --foreground: var(--slate-700);
-  --foreground-secondary: var(--slate-600);
-  --skeleton-base: var(--slate-200);
-  --skeleton-highlight: var(--slate-100);
-  --input-background: var(--slate-50);
-  --input-inactive: var(--slate-300);
-  --input-border: var(--slate-300);
-  --input-placeholder: var(--slate-500);
-  --input-active: var(--accent);
-  --shadow-hsl: var(--slate-900-hsl);
-  --tooltip-background: var(--amber-200);
-  --tooltip-foreground: var(--amber-900);
+  --background: var(--neutral-1);
+  --panel: var(--neutral-2);
+  --foreground: var(--neutral-12);
+  --foreground-secondary: var(--neutral-11);
+  --skeleton-base: var(--neutral-9);
+  --skeleton-highlight: var(--neutral-11);
+  --input-background: var(--neutral-1);
+  --input-inactive: var(--neutral-7);
+  --input-border: var(--neutral-7);
+  --input-placeholder: var(--neutral-11);
+  --input-active: var(--accent-9);
+  --shadow-hsl: 206 24% 9%;
+  --focus: var(--accent-a-4);
+  --tooltip-background: var(--amber-4);
+  --tooltip-foreground: var(--amber-12);
+  --accent-inverse: var(--accent-1);
 }

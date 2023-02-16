@@ -1,17 +1,18 @@
 :where([data-theme="dark"]) {
-  --background: var(--slate-800);
-  --panel: var(--slate-700);
-  --foreground: var(--slate-100);
-  --foreground-secondary: var(--slate-200);
-  --skeleton-base: var(--slate-700);
-  --skeleton-highlight: var(--slate-600);
-  --input-background: var(--slate-900);
-  --input-inactive: var(--slate-500);
-  --input-border: var(--slate-500);
-  --input-placeholder: var(--slate-400);
-  --input-active: var(--accent);
+  --background: var(--neutral-1);
+  --panel: var(--neutral-2);
+  --foreground: var(--neutral-12);
+  --foreground-secondary: var(--neutral-11);
+  --skeleton-base: var(--neutral-9);
+  --skeleton-highlight: var(--neutral-11);
+  --input-background: var(--neutral-1);
+  --input-inactive: var(--neutral-7);
+  --input-border: var(--neutral-7);
+  --input-placeholder: var(--neutral-11);
+  --input-active: var(--accent-9);
   --shadow-hsl: 0 0% 0%;
-  --focus: hsla(var(--accent-hsl) / 0.5);
-  --tooltip-background: var(--amber-800);
-  --tooltip-foreground: var(--amber-100);
+  --focus: var(--crimson-a-4);
+  --tooltip-background: var(--amber-10);
+  --tooltip-foreground: var(--amber-1);
+  --accent-inverse: var(--crimson-12);
 }

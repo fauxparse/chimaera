@@ -11,7 +11,7 @@ import { HUES, SHADES, color } from './index';
       --drop-height: 2rem;
       --drop-width: 3.5rem;
       display: grid;
-      grid-template-columns: auto repeat(${SHADES.length}, var(--drop-width));
+      grid-template-columns: auto repeat(${SHADES.length / 2}, var(--drop-width));
       gap: 1rem 0.5rem;
       width: max-content;
     }
@@ -27,7 +27,7 @@ import { HUES, SHADES, color } from './index';
 
     .palette__drop {
       background-color: currentColor;
-      border: 1px solid var(--slate-300);
+      border: 1px solid var(--slate-6);
       border-radius: 0.25rem;
       height: var(--drop-height);
     }
@@ -36,11 +36,15 @@ import { HUES, SHADES, color } from './index';
       font-size: 0.625rem;
       white-space: nowrap;
     }
+
+    :not([data-shade^="a"]) + [data-shade^="a"] {
+      grid-column: 2;
+    }
   `}
 </style>
 
 <div className="palette">
-  {SHADES.map((shade, i) => (
+  {SHADES.slice(0, SHADES.length / 2).map((shade, i) => (
     <div key={shade} style={{ textAlign: 'center', gridColumn: i + 2 }}>
       {shade}
     </div>
@@ -49,7 +53,7 @@ import { HUES, SHADES, color } from './index';
     <Fragment key={hue}>
       <div className="palette__name">{upperFirst(hue)}</div>
       {SHADES.map((shade) => (
-        <div key={shade}>
+        <div key={shade} data-hue={hue} data-shade={shade}>
           <div
             className="palette__drop"
             style={{ color: `var(--${hue}-${shade})` }}
