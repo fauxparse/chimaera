@@ -31,3 +31,5 @@ Object.defineProperties(MouseEvent.prototype, {
 });
 
 global.ResizeObserver = require('resize-observer-polyfill');
+
+require('intersection-observer');
