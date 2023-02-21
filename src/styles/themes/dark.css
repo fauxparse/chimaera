@@ -6,10 +6,11 @@
   --skeleton-base: var(--neutral-9);
   --skeleton-highlight: var(--neutral-11);
   --input-background: var(--neutral-1);
-  --input-inactive: var(--neutral-7);
+  --input-inactive: var(--neutral-8);
   --input-border: var(--neutral-7);
   --input-placeholder: var(--neutral-11);
   --input-active: var(--accent-9);
+  --input-active-secondary: var(--accent-8);
   --shadow-hsl: 0 0% 0%;
   --focus: var(--crimson-a-4);
   --tooltip-background: var(--amber-10);

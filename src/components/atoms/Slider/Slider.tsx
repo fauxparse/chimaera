@@ -1,24 +1,16 @@
-import { forwardRef, useEffect, useLayoutEffect, useReducer, useRef, useState } from 'react';
+import { CSSProperties, forwardRef, useLayoutEffect, useReducer, useRef } from 'react';
 import { mergeRefs } from 'react-merge-refs';
-import { isEqual, set } from 'lodash-es';
+import { FloatingDelayGroup } from '@floating-ui/react';
+import { set } from 'lodash-es';
 
 import Proton from '@/components/Proton';
 
 import Range from './Range';
-import { isRangeSlider, RangeValue, SliderProps } from './Slider.types';
+import { isRangeSlider, RangeValue, SingleValue, SliderProps } from './Slider.types';
 import SliderContext from './SliderContext';
 import Thumb from './Thumb';
 
 import './Slider.css';
-
-type SliderState = [number] | [number, number];
-
-type SliderAction =
-  | {
-      index: number;
-      value: number;
-    }
-  | SliderState;
 
 export const Slider = forwardRef<HTMLDivElement, SliderProps>((props, ref) => {
   const ownRef = useRef<HTMLDivElement>(null);
@@ -31,37 +23,34 @@ export const Slider = forwardRef<HTMLDivElement, SliderProps>((props, ref) => {
     step = 1,
     jump = 10,
     value,
+    disabled = false,
     onChange,
     onFormatValue = String,
+    style = {},
     ...otherProps
   } = props;
 
-  const [flipped, setFlipped] = useState(false);
+  const flipped = useRef(false);
 
-  const [values, dispatch] = useReducer(
-    (state: SliderState, action: SliderAction) => {
-      if (Array.isArray(action)) return isEqual(action, state) ? state : action;
-      if (state[action.index] === action.value) return state;
-      return set([...state] as SliderState, action.index, action.value);
+  const thumbs: RangeValue | [SingleValue] = isRanged
+    ? flipped.current
+      ? [props.value[1], props.value[0]]
+      : props.value
+    : [props.value];
+
+  const [dragging, setDragging] = useReducer(
+    (state: [boolean, boolean], action: { [key in '0' | '1']?: boolean }) => {
+      return [action[0] ?? state[0], action[1] ?? state[1]] as [boolean, boolean];
     },
-    isRanged ? props.value : [props.value]
+    [false, false]
   );
-
-  useEffect(() => {
-    if (isRanged) {
-      const [a, b] = values as RangeValue;
-      setFlipped(a > b);
-      const newValues: RangeValue = flipped ? [b, a] : [a, b];
-      if (!isEqual(newValues, props.value)) props.onChange(newValues);
-    } else {
-      if (values[0] !== props.value) props.onChange(values[0]);
-    }
-  }, [isRanged, values, flipped, props]);
 
   /* c8 ignore next 17 */
   useLayoutEffect(() => {
     const slider = ownRef.current;
     if (!slider) return;
+
+    setTimeout(() => slider.style.removeProperty('--dragging'), 50);
 
     const resized = () => {
       const { width } = slider.getBoundingClientRect();
@@ -77,14 +66,63 @@ export const Slider = forwardRef<HTMLDivElement, SliderProps>((props, ref) => {
     return () => resizeObserver.disconnect();
   }, []);
 
+  const changed = (index: number, value: number) => {
+    if (isRanged) {
+      const newValue: RangeValue = set([...props.value], index, value);
+      if (flipped.current) {
+        if (newValue[0] < newValue[1]) {
+          flipped.current = false;
+        } else {
+          newValue.reverse();
+        }
+      } else if (newValue[0] > newValue[1]) {
+        flipped.current = true;
+        newValue.reverse();
+      }
+      props.onChange(newValue);
+    } else {
+      props.onChange(value);
+    }
+  };
+
+  const rangeChanged = (range: RangeValue) => {
+    if (!isRanged) return;
+    flipped.current = false;
+    props.onChange(range);
+  };
+
   return (
     <SliderContext.Provider value={{ min, max, step, jump, onFormatValue }}>
-      <Proton baseClassName="slider" ref={mergeRefs([ref, ownRef])} {...otherProps}>
-        {isRanged && <Range range={values as RangeValue} onChange={dispatch} />}
-        {values.map((value, index) => (
-          <Thumb key={index} value={value} onChange={(value) => dispatch({ index, value })} />
-        ))}
-      </Proton>
+      <FloatingDelayGroup delay={{ open: 500, close: 500 }}>
+        <Proton
+          baseClassName="slider"
+          ref={mergeRefs([ref, ownRef])}
+          style={{ ...style, '--dragging': 1 } as CSSProperties}
+          aria-disabled={disabled || undefined}
+          {...otherProps}
+        >
+          {isRanged && (
+            <Range
+              range={props.value}
+              disabled={disabled}
+              onStartDrag={() => setDragging({ 0: true, 1: true })}
+              onEndDrag={() => setDragging({ 0: false, 1: false })}
+              onChange={rangeChanged}
+            />
+          )}
+          {thumbs.map((value, index) => (
+            <Thumb
+              key={index}
+              value={value}
+              dragging={dragging[index]}
+              disabled={disabled}
+              onStartDrag={() => setDragging({ [index]: true })}
+              onEndDrag={() => setDragging({ [index]: false })}
+              onChange={(value) => changed(index, value)}
+            />
+          ))}
+        </Proton>
+      </FloatingDelayGroup>
     </SliderContext.Provider>
   );
 });

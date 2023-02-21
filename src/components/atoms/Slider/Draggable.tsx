@@ -1,24 +1,9 @@
-import {
-  ComponentPropsWithoutRef,
-  CSSProperties,
-  forwardRef,
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-} from 'react';
+import { CSSProperties, forwardRef, useCallback, useContext, useEffect, useRef } from 'react';
 import { mergeRefs } from 'react-merge-refs';
 import clsx from 'clsx';
 
+import { DraggableProps } from './Slider.types';
 import SliderContext from './SliderContext';
-
-type DraggableProps = Omit<ComponentPropsWithoutRef<'span'>, 'onChange'> & {
-  value: number;
-  width?: number;
-  onChange: (value: number) => void;
-  onStartDrag?: () => void;
-  onEndDrag?: () => void;
-};
 
 const getStyle = (element: HTMLElement, prop: string, defaultValue = 0): number => {
   const result = parseInt(window.getComputedStyle(element).getPropertyValue(prop));
@@ -26,14 +11,25 @@ const getStyle = (element: HTMLElement, prop: string, defaultValue = 0): number 
   return isNaN(result) ? defaultValue : result;
 };
 
-const Draggable = forwardRef<HTMLSpanElement, DraggableProps>(
+const Draggable = forwardRef<HTMLDivElement, DraggableProps>(
   (
-    { className, value, width = 0, onChange, onStartDrag, onEndDrag, style = {}, ...props },
+    {
+      className,
+      value,
+      width = 0,
+      disabled,
+      onChange,
+      onStartDrag,
+      onEndDrag,
+      onDrag,
+      style = {},
+      ...props
+    },
     ref
   ) => {
     const { min, max, step, jump } = useContext(SliderContext);
 
-    const draggable = useRef<HTMLSpanElement>(null);
+    const draggable = useRef<HTMLDivElement>(null);
 
     const position = useRef((value - min) / (max - min));
 
@@ -43,63 +39,63 @@ const Draggable = forwardRef<HTMLSpanElement, DraggableProps>(
       currentValue.current = value;
     }, [value]);
 
-    useEffect(() => {
+    const pointerDown = (e: React.PointerEvent) => {
       /* c8 ignore next 2 */
       const el = draggable.current;
-      if (!el) return;
+      if (!el || disabled) return;
 
-      const pointerDown = (e: PointerEvent) => {
-        e.stopPropagation();
-        el.focus();
+      e.stopPropagation();
+      el.focus();
 
-        const track = el.parentElement!;
-        const fullRange = max - min;
-        const paddingStart = getStyle(track, 'padding-inline-start', 0);
-        const paddingEnd = getStyle(track, 'padding-inline-end', 0);
-        const marginStart = getStyle(el, 'margin-inline-start', 0);
-        const direction = getStyle(el, '--ltr', 1);
+      const track = el.parentElement!;
+      const fullRange = max - min;
+      const paddingStart = getStyle(track, 'padding-inline-start', 0);
+      const paddingEnd = getStyle(track, 'padding-inline-end', 0);
+      const marginStart = getStyle(el, 'margin-inline-start', 0);
+      const direction = getStyle(el, '--ltr', 1);
 
-        const trackLength = track.offsetWidth - paddingStart - paddingEnd;
+      const trackLength = track.offsetWidth - paddingStart - paddingEnd;
 
-        const offset =
-          direction < 0 ? e.offsetX - marginStart - el.offsetWidth : e.offsetX + marginStart;
+      const { offsetX } = e.nativeEvent;
 
-        track.querySelectorAll('.slider__draggable').forEach((el) => {
-          (el as HTMLElement).style.setProperty('pointer-events', 'none');
-        });
+      const offset = direction < 0 ? offsetX - marginStart - el.offsetWidth : offsetX + marginStart;
 
-        const pointerMove = (e: PointerEvent) => {
-          const p = (e.offsetX - offset - paddingStart) / trackLength;
-          position.current = Math.max(
-            0,
-            Math.min(1 - width / fullRange, direction < 0 ? 1 - p : p)
-          );
+      track.querySelectorAll('.slider__draggable').forEach((el) => {
+        const style = (el as HTMLElement).style;
+        style.setProperty('pointer-events', 'none');
+        style.setProperty('transition-duration', '0s');
+      });
 
-          el.style.setProperty('--position', position.current.toString());
-          const newValue = Math.round(((max - min) * position.current) / step) + min;
+      const pointerMove = (e: PointerEvent) => {
+        const p = (e.offsetX - offset - paddingStart) / trackLength;
+        position.current = Math.max(0, Math.min(1 - width / fullRange, direction < 0 ? 1 - p : p));
 
-          if (newValue !== currentValue.current) onChange(newValue);
-        };
+        onDrag?.();
+        el.style.setProperty('--position', position.current.toString());
+        const newValue = Math.round(((max - min) * position.current) / step) + min;
 
-        const pointerUp = () => {
-          track.querySelectorAll('.slider__draggable').forEach((el) => {
-            (el as HTMLElement).style.removeProperty('pointer-events');
-          });
-          track.removeEventListener('pointermove', pointerMove);
-          window.removeEventListener('pointerup', pointerUp);
-          onEndDrag?.();
-        };
-
-        track.addEventListener('pointermove', pointerMove);
-        window.addEventListener('pointerup', pointerUp, { once: true });
-
-        onStartDrag?.();
+        if (newValue !== currentValue.current) onChange(newValue);
       };
 
-      el.addEventListener('pointerdown', pointerDown);
+      const pointerUp = () => {
+        track.querySelectorAll('.slider__draggable').forEach((el) => {
+          const style = (el as HTMLElement).style;
+          style.removeProperty('pointer-events');
+          style.removeProperty('transition-duration');
+        });
 
-      return () => el.removeEventListener('pointerdown', pointerDown);
-    }, [min, max, step, width, onChange, onStartDrag, onEndDrag]);
+        track.style.removeProperty('--dragging');
+        track.removeEventListener('pointermove', pointerMove);
+        window.removeEventListener('pointerup', pointerUp);
+        onEndDrag?.();
+      };
+
+      track.style.setProperty('--dragging', '1');
+      track.addEventListener('pointermove', pointerMove);
+      window.addEventListener('pointerup', pointerUp, { once: true });
+
+      onStartDrag?.();
+    };
 
     useEffect(() => {
       /* c8 ignore next */
@@ -113,10 +109,17 @@ const Draggable = forwardRef<HTMLSpanElement, DraggableProps>(
         const direction = getStyle(e.currentTarget, '--ltr', 1);
 
         const changed = (delta: number) => {
+          const track = draggable.current?.parentElement;
+          if (!track) return;
+
           const newValue = Math.max(min, Math.min(max - width, value + delta));
 
           if (newValue !== value) {
+            track.style.setProperty('--dragging', '1');
             onChange(newValue);
+            window.addEventListener('keyup', () => track.style.removeProperty('--dragging'), {
+              once: true,
+            });
           }
         };
 
@@ -152,12 +155,13 @@ const Draggable = forwardRef<HTMLSpanElement, DraggableProps>(
     );
 
     return (
-      <span
+      <div
         ref={mergeRefs([ref, draggable])}
         className={clsx('slider__draggable', className)}
         style={{ ...style, '--position': position.current } as CSSProperties}
-        onKeyDown={keyDown}
         {...props}
+        onKeyDown={keyDown}
+        onPointerDown={pointerDown}
       />
     );
   }

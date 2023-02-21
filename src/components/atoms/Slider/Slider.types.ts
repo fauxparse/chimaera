@@ -1,11 +1,13 @@
+import { ComponentPropsWithoutRef, Dispatch, SetStateAction } from 'react';
+
 import { ProtonProps } from '@/components/Proton';
 
 export type SingleValue = number;
 
 export type RangeValue = [number, number];
 
-type SingleOnChange = (value: number) => void;
-type RangeOnChange = (value: [number, number]) => void;
+export type SingleOnChange = (value: SingleValue) => void | Dispatch<SetStateAction<SingleValue>>;
+export type RangeOnChange = (value: RangeValue) => void | Dispatch<SetStateAction<RangeValue>>;
 
 type SingleSlider = {
   value: SingleValue;
@@ -22,6 +24,7 @@ type BaseSliderProps = Omit<ProtonProps, 'onChange'> & {
   max?: number;
   step?: number;
   jump?: number;
+  disabled?: boolean;
   onFormatValue?: (value: number) => string;
 };
 
@@ -34,4 +37,14 @@ export const isRangeSlider = (
   props: SingleSliderProps | RangeSliderProps
 ): props is RangeSliderProps => {
   return Array.isArray(props.value);
+};
+
+export type DraggableProps = Omit<ComponentPropsWithoutRef<'span'>, 'onChange' | 'onDrag'> & {
+  value: number;
+  width?: number;
+  disabled?: boolean;
+  onChange: (value: number) => void;
+  onStartDrag?: () => void;
+  onEndDrag?: () => void;
+  onDrag?: () => void;
 };

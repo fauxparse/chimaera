@@ -4,8 +4,9 @@
   --slider-track-height: var(--spacing-small);
   --slider-thumb-size: 1.25rem;
   --slider-thumb-color: var(--input-active);
-  --slider-range-color: var(--input-active);
+  --slider-range-color: var(--input-active-secondary);
   --slider-length: 100px;
+  --slider-transition-time: var(--timing-slow);
   --dragging: 0;
   display: grid;
   grid: var(--slider-height) / 1fr;
@@ -24,11 +25,15 @@
 
   :where(.slider__draggable) {
     --position: 0;
+    --transition-time: calc(var(--slider-transition-time) * (1 - var(--dragging, 0)));
     grid-row: 1;
     grid-column: 1;
     align-self: center;
     justify-self: flex-start;
     cursor: pointer;
+    transition: transform var(--transition-time) var(--ease-squish-4),
+      width var(--transition-time) var(--ease-squish-4),
+      outline-width var(--timing-slow) var(--ease-squish-4);
     transform: translateX(calc(var(--position) * var(--slider-length) * var(--ltr)));
   }
 
@@ -41,53 +46,8 @@
     border-radius: 50%;
     background: var(--slider-thumb-color);
     outline: solid 0 var(--focus);
-    transition: outline-width var(--timing-slow) var(--ease-squish-4);
-
-    &::before,
-    &::after {
-      position: absolute;
-      bottom: 100%;
-      left: 50%;
-      opacity: var(--dragging);
-      transition: transform var(--timing-slow) var(--ease-squish-4),
-        opacity var(--timing-standard) var(--easing-standard);
-    }
-
-    &::after {
-      content: attr(data-value);
-      padding: var(--spacing-tiny) var(--spacing-small);
-      border-radius: var(--border-radius-standard);
-      background: var(--tooltip-background);
-      color: var(--tooltip-foreground);
-      font-size: var(--font-size-small);
-      line-height: var(--line-height-small);
-      transform: translate(
-          -50%,
-          calc(
-            (1 - var(--dragging)) * var(--spacing-small) - var(--dragging) * var(--spacing-medium)
-          )
-        )
-        scale(var(--dragging));
-    }
-
-    &::before {
-      content: "";
-      width: var(--spacing-small);
-      height: var(--spacing-small);
-      border-bottom-right-radius: 0.125rem;
-      background: var(--tooltip-background);
-      transform: translate(
-          -50%,
-          calc(
-            (1 - var(--dragging)) * var(--spacing-small) * -1 + var(--dragging) *
-              (var(--spacing-medium) * -1 + 50%)
-          )
-        )
-        rotate(45deg) scale(var(--dragging));
-    }
 
     &:where(:hover, :focus, :active) {
-      --dragging: 1;
       outline-width: var(--focus-width);
     }
   }
@@ -96,5 +56,17 @@
     width: calc(var(--width) * var(--slider-length));
     height: var(--slider-track-height);
     background: var(--slider-range-color);
+  }
+
+  &:where([aria-disabled="true"]) {
+    --slider-thumb-color: var(--input-inactive);
+    --slider-range-color: var(--input-inactive);
+    opacity: var(--disabled-opacity);
+    cursor: not-allowed;
+
+    :where(.slider__draggable) {
+      outline-width: 0;
+      cursor: not-allowed;
+    }
   }
 }

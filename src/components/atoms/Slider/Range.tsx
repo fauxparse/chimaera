@@ -1,72 +1,57 @@
-import {
-  ComponentPropsWithoutRef,
-  CSSProperties,
-  forwardRef,
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-} from 'react';
+import { CSSProperties, forwardRef, useCallback, useContext, useEffect, useRef } from 'react';
 import { mergeRefs } from 'react-merge-refs';
 import { sortBy } from 'lodash-es';
 
 import Draggable from './Draggable';
-import { RangeValue } from './Slider.types';
+import { DraggableProps, RangeValue } from './Slider.types';
 import SliderContext from './SliderContext';
 
-type RangeProps = Omit<ComponentPropsWithoutRef<'span'>, 'onChange'> & {
+type RangeProps = Omit<DraggableProps, 'value' | 'onChange'> & {
   range: RangeValue;
   onChange: (value: RangeValue) => void;
 };
 
-const Range = forwardRef<HTMLSpanElement, RangeProps>(({ range, style, onChange }, ref) => {
-  const [start, end] = sortBy(range);
+const Range = forwardRef<HTMLSpanElement, RangeProps>(
+  ({ range, style, onChange, ...props }, ref) => {
+    const [start, end] = sortBy(range);
 
-  const draggable = useRef<HTMLSpanElement>(null);
+    const draggable = useRef<HTMLSpanElement>(null);
 
-  const { min, max } = useContext(SliderContext);
+    const { min, max } = useContext(SliderContext);
 
-  const width = useRef(end - start);
+    const width = useRef(end - start);
 
-  useEffect(() => {
-    width.current = end - start;
-  }, [start, end]);
+    useEffect(() => {
+      width.current = end - start;
+    }, [start, end]);
 
-  const changed = useCallback(
-    (start: number) => {
-      onChange([start, start + width.current]);
-    },
-    [onChange, width]
-  );
+    const changed = useCallback(
+      (start: number) => {
+        onChange([start, start + width.current]);
+      },
+      [onChange, width]
+    );
 
-  useEffect(() => {
-    /* c8 ignore next 2 */
-    const el = draggable.current;
-    if (!el) return;
-    el.style.setProperty('--position', (start / (max - min)).toString());
-    el.style.setProperty('--width', ((end - start) / (max - min)).toString());
-  }, [start, end, min, max]);
+    useEffect(() => {
+      /* c8 ignore next 2 */
+      const el = draggable.current;
+      if (!el) return;
+      el.style.setProperty('--position', (start / (max - min)).toString());
+      el.style.setProperty('--width', ((end - start) / (max - min)).toString());
+    }, [start, end, min, max]);
 
-  const startDrag = useCallback(() => {
-    draggable.current?.parentElement?.style?.setProperty('--dragging', '1');
-  }, []);
-
-  const endDrag = useCallback(() => {
-    draggable.current?.parentElement?.style?.removeProperty('--dragging');
-  }, []);
-
-  return (
-    <Draggable
-      ref={mergeRefs([ref, draggable])}
-      className="slider__range"
-      value={start}
-      width={end - start}
-      onChange={changed}
-      onStartDrag={startDrag}
-      onEndDrag={endDrag}
-      style={{ ...style, '--width': `${(end - start) / (max - min)}` } as CSSProperties}
-    />
-  );
-});
+    return (
+      <Draggable
+        ref={mergeRefs([ref, draggable])}
+        className="slider__range"
+        value={start}
+        width={end - start}
+        onChange={changed}
+        style={{ ...style, '--width': `${(end - start) / (max - min)}` } as CSSProperties}
+        {...props}
+      />
+    );
+  }
+);
 
 export default Range;
