@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@ctrl/tinycolor": "^3.5.0",
+    "@floating-ui/react": "^0.19.2",
     "clsx": "^1.2.1",
     "invariant": "^2.2.4",
     "lodash-es": "^4.17.21",
@@ -76,5 +77,8 @@
     "vite": "^4.0.0",
     "vitest": "^0.27.2",
     "vitest-axe": "^0.1.0"
+  },
+  "peerDependencies": {
+    "framer-motion": "^9.0.4"
   }
 }

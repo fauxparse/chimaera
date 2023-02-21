@@ -13,7 +13,7 @@
   --input-active: var(--accent-9);
   --shadow-hsl: 206 24% 9%;
   --focus: var(--accent-a-4);
-  --tooltip-background: var(--amber-4);
+  --tooltip-background: var(--amber-3);
   --tooltip-foreground: var(--amber-12);
   --accent-inverse: var(--accent-1);
 }
