@@ -64,4 +64,16 @@
   &::placeholder {
     color: var(--input-placeholder);
   }
+
+  :where(.react-loading-skeleton__container > &) {
+    --input-border-width: 0px;
+    display: flex;
+    align-items: stretch;
+    height: calc(var(--input-line-height) + var(--input-padding-block) * 2);
+    padding: 0;
+
+    :where(.react-loading__skeleton) {
+      flex: 1;
+    }
+  }
 }
