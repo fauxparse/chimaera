@@ -58,6 +58,7 @@
     --button-padding-inline: calc(var(--spacing-small) - var(--button-border-width));
   }
 
+  &,
   &:where([data-size="medium"]) {
     --button-size: var(--button-size-medium);
     --button-font-size: var(--font-size-medium);
@@ -94,5 +95,15 @@
 
   &:where(:has(.icon:only-child)) {
     border-radius: 50%;
+  }
+
+  :where(.react-loading-skeleton__container > &) {
+    --button-border-width: 0px;
+    padding: 0;
+
+    .react-loading-skeleton {
+      width: calc(4rem + 2 * var(--button-padding-inline));
+      height: calc(var(--button-line-height) + 2 * var(--button-padding-block));
+    }
   }
 }

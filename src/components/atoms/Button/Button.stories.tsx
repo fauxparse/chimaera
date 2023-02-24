@@ -79,6 +79,12 @@ export default {
         disable: true,
       },
     },
+    loading: {
+      table: {
+        category: 'Proton',
+      },
+      control: 'boolean',
+    },
     theme: {
       table: {
         disable: true,

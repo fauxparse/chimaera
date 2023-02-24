@@ -20,6 +20,12 @@ export default {
         disable: true,
       },
     },
+    loading: {
+      table: {
+        category: 'Proton',
+      },
+      control: 'boolean',
+    },
     disabled: {
       control: {
         type: 'boolean',

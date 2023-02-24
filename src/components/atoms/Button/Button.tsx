@@ -13,7 +13,7 @@ const useCustomButton = <T extends AllButtonVariants>(props: T): T =>
 
 export const Button: ButtonComponent = forwardRef(
   <C extends ElementType = 'button'>(
-    { text, icon, as, children, ...props }: ButtonProps<C>,
+    { text, icon, as, children, skeletonProps, ...props }: ButtonProps<C>,
     ref?: PolymorphicRef<C>
   ) => {
     const Component = (as ?? 'button') as ElementType;
@@ -34,6 +34,10 @@ export const Button: ButtonComponent = forwardRef(
         baseClassName="button"
         data-size={size}
         data-variant={variant}
+        skeletonProps={{
+          ...skeletonProps,
+          width: undefined,
+        }}
         {...extraButtonProps}
         {...buttonProps}
       >
