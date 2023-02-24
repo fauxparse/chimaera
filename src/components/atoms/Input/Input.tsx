@@ -29,7 +29,6 @@ export const Input: InputComponent = forwardRef(({ as, iconBefore, iconAfter, ..
       baseClassName="input"
       size={htmlSize || undefined}
       data-size={size}
-      skeletonProps={{ width: undefined }}
       {...inputProps}
     />
   );

@@ -7,6 +7,7 @@
   --button-border-radius: var(--border-radius-standard);
   --button-hover-background: var(--neutral-a-4);
   --button-active-background: var(--neutral-a-5);
+  --button-default-width: 6em;
 }
 
 :where(.button) {
@@ -94,16 +95,21 @@
   }
 
   &:where(:has(.icon:only-child)) {
+    --button-default-width: var(--button-size);
     border-radius: 50%;
   }
 
-  :where(.react-loading-skeleton__container > &) {
-    --button-border-width: 0px;
-    padding: 0;
+  &:where([data-icon-only]) {
+    --button-default-width: var(--button-size);
+    border-radius: 50%;
+  }
 
-    .react-loading-skeleton {
-      width: calc(4rem + 2 * var(--button-padding-inline));
-      height: calc(var(--button-line-height) + 2 * var(--button-padding-block));
-    }
+  &:where(.skeleton) {
+    --button-border-width: 0px;
+    --button-background: var(--skeleton-base);
+    --button-hover-background: var(--skeleton-base);
+    --button-active-background: var(--skeleton-base);
+    min-width: var(--button-default-width);
+    height: calc(var(--button-line-height) + var(--button-padding-block) * 2);
   }
 }

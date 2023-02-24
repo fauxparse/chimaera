@@ -1,12 +1,21 @@
-[data-theme] .react-loading-skeleton {
-  --base-color: var(--skeleton-base);
-  --highlight-color: var(--skeleton-highlight);
-
-  &__container {
-    line-height: 1;
+@keyframes loading {
+  0% {
+    background-position: 100% 0%;
+  }
+  100% {
+    background-position: 0% 0%;
   }
 }
 
-:has(> .react-loading-skeleton) {
-  line-height: 1;
+.skeleton {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(
+    to right,
+    var(--skeleton-base) 35%,
+    var(--skeleton-highlight) 50%,
+    var(--skeleton-base) 65%
+  );
+  background-size: 300% 100%;
+  animation: loading normal 1.5s ease-in-out infinite;
 }

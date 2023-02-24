@@ -11,7 +11,7 @@ import useDragInteraction from './useDragInteraction';
 import './Switch.css';
 
 export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
-  ({ skeletonProps = {}, indeterminate, ...props }, ref) => {
+  ({ indeterminate, ...props }, ref) => {
     const ownRef = useRef<HTMLInputElement>(null);
 
     const { orientation = Orientation.HORIZONTAL, ...switchProps } = extractVariants(
@@ -35,12 +35,6 @@ export const Switch = forwardRef<HTMLInputElement, SwitchProps>(
         role="switch"
         baseClassName="switch"
         data-orientation={orientation}
-        skeletonProps={{
-          width: 'var(--switch-track-length)',
-          height: 'var(--switch-height)',
-          borderRadius: 'var(--switch-height)',
-          ...skeletonProps,
-        }}
         {...switchProps}
       />
     );

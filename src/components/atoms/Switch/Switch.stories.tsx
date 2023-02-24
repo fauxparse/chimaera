@@ -20,7 +20,7 @@ export default {
   title: 'Atoms/Switch',
   component: Switch,
   argTypes: {
-    ...hideProps(['ref', 'as', 'baseClassName', 'horizontal', 'vertical', 'skeletonProps']),
+    ...hideProps(['ref', 'as', 'baseClassName', 'horizontal', 'vertical']),
     disabled: {
       control: {
         type: 'boolean',

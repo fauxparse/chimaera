@@ -1,6 +1,7 @@
 import type { StoryObj } from '@storybook/react';
 
 import Icon from '../Icon';
+import ProtonArgTypes, { hideArgs } from '@/components/Proton/Proton.args';
 
 import Button from './Button';
 import { ButtonProps, ButtonSize, ButtonVariant } from './Button.types';
@@ -11,6 +12,7 @@ export default {
   title: 'Atoms/Button',
   component: Button,
   argTypes: {
+    ...ProtonArgTypes({ as: 'button' }),
     text: {
       table: {
         type: {
@@ -22,12 +24,13 @@ export default {
       },
     },
     size: {
+      description: 'Size to render',
       table: {
         type: {
           summary: 'ButtonSize',
         },
         defaultValue: {
-          summary: 'MEDIUM',
+          summary: 'ButtonSize.MEDIUM',
         },
       },
       options: Object.values(ButtonSize),
@@ -36,12 +39,13 @@ export default {
       },
     },
     variant: {
+      description: 'Variant to render',
       table: {
         type: {
           summary: 'ButtonVariant',
         },
         defaultValue: {
-          summary: 'SECONDARY',
+          summary: 'ButtonVariant.SECONDARY',
         },
       },
       options: Object.values(ButtonVariant),
@@ -50,44 +54,14 @@ export default {
       },
     },
     disabled: {
+      description: 'Whether to disable the button',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+      },
       control: {
         type: 'boolean',
-      },
-    },
-    ...Object.values(ButtonSize).reduce(
-      (acc, size) => ({
-        ...acc,
-        [size]: { table: { disable: true } },
-      }),
-      {}
-    ),
-    ...Object.values(ButtonVariant).reduce(
-      (acc, variant) => ({
-        ...acc,
-        [variant]: { table: { disable: true } },
-      }),
-      {}
-    ),
-    as: {
-      table: {
-        defaultValue: {
-          summary: 'button',
-        },
-        category: 'Proton',
-      },
-      control: {
-        disable: true,
-      },
-    },
-    loading: {
-      table: {
-        category: 'Proton',
-      },
-      control: 'boolean',
-    },
-    theme: {
-      table: {
-        disable: true,
       },
     },
     icon: {
@@ -97,11 +71,7 @@ export default {
         },
       },
     },
-    ref: {
-      table: {
-        disable: true,
-      },
-    },
+    ...hideArgs([...Object.values(ButtonSize), ...Object.values(ButtonVariant)]),
   },
   args: {
     text: 'Button',

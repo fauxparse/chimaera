@@ -4,8 +4,8 @@
   --panel: var(--neutral-2);
   --foreground: var(--neutral-12);
   --foreground-secondary: var(--neutral-11);
-  --skeleton-base: var(--neutral-4);
-  --skeleton-highlight: var(--neutral-5);
+  --skeleton-base: var(--neutral-5);
+  --skeleton-highlight: var(--neutral-4);
   --input-background: var(--neutral-1);
   --input-inactive: var(--neutral-8);
   --input-border: var(--neutral-7);

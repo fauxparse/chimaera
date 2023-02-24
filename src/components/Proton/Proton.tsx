@@ -1,53 +1,28 @@
-import { ComponentPropsWithoutRef, ElementType, forwardRef } from 'react';
-import Skeleton, { SkeletonProps } from 'react-loading-skeleton';
+import { ElementType, forwardRef } from 'react';
 import clsx from 'clsx';
 
-import { As, PolymorphicRef } from '@/types/polymorphic.types';
+import { PolymorphicRef } from '@/types/polymorphic.types';
 
 import { ProtonComponent, ProtonProps } from './Proton.types';
 
 import './Proton.css';
-import 'react-loading-skeleton/dist/skeleton.css';
-
-const DEFAULT_SKELETON_PROPS: SkeletonProps = {
-  inline: true,
-  width: '6rem',
-  containerClassName: 'react-loading-skeleton__container',
-};
-
-type WrapperProps<C extends ElementType> = ComponentPropsWithoutRef<C> & As<C>;
-
-const SkeletonWrapper = <C extends ElementType = 'div'>({ as, ...props }: WrapperProps<C>) =>
-  function Wrapper({ children }: ComponentPropsWithoutRef<C>) {
-    const Component = (as || 'div') as ElementType;
-    return <Component {...props}>{children}</Component>;
-  };
 
 export const Proton: ProtonComponent = forwardRef(
   <C extends ElementType = 'div'>(
-    { as, theme, baseClassName, className, loading, skeletonProps, ...props }: ProtonProps<C>,
+    { as, theme, baseClassName, className, loading, ...props }: ProtonProps<C>,
     ref?: PolymorphicRef<C>
   ) => {
     const Component = as || 'div';
 
-    const classNames = clsx(baseClassName, className) || undefined;
+    const classNames = clsx(baseClassName, className, loading && 'skeleton') || undefined;
+
+    const dataProps = Object.entries(props).reduce(
+      (acc, [key, value]) => (key.startsWith('data-') ? { ...acc, [key]: value } : acc),
+      { 'data-loading': true }
+    );
 
     if (loading) {
-      const Wrapper =
-        skeletonProps?.wrapper ||
-        (SkeletonWrapper({
-          ...props,
-          className: classNames,
-        }) as SkeletonProps['wrapper']);
-
-      return (
-        <Skeleton
-          {...DEFAULT_SKELETON_PROPS}
-          wrapper={Wrapper}
-          {...(skeletonProps || {})}
-          {...props}
-        />
-      );
+      return <div className={classNames} aria-busy {...dataProps} />;
     }
 
     return (

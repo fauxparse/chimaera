@@ -1,4 +1,4 @@
-import { Children, ElementType, forwardRef } from 'react';
+import { AriaRole, Children, ComponentPropsWithoutRef, ElementType, forwardRef } from 'react';
 
 import Proton from '@/components/Proton';
 import { PolymorphicRef } from '@/types/polymorphic.types';
@@ -11,6 +11,11 @@ import './Button.css';
 const useCustomButton = <T extends AllButtonVariants>(props: T): T =>
   extractVariants(BUTTON_VARIANTS, props);
 
+type ExtraButtonProps = { 'data-icon-only'?: boolean } & (
+  | { type: ComponentPropsWithoutRef<'button'>['type'] }
+  | { role: AriaRole }
+);
+
 export const Button: ButtonComponent = forwardRef(
   <C extends ElementType = 'button'>(
     { text, icon, as, children, skeletonProps, ...props }: ButtonProps<C>,
@@ -20,7 +25,13 @@ export const Button: ButtonComponent = forwardRef(
 
     const { size, variant, ...buttonProps } = useCustomButton(props);
 
-    const extraButtonProps = Component === 'button' ? { type: 'button' } : { role: 'button' };
+    const extraButtonProps: ExtraButtonProps =
+      Component === 'button' ? { type: 'button' } : { role: 'button' };
+
+    // Fallback for browsers that don't support :has() (only Firefox at the moment)
+    if (!text && !!icon && (props.loading || !CSS.supports('selector(:has())'))) {
+      extraButtonProps['data-icon-only'] = true;
+    }
 
     // Auto-wrap plain text children
     const buttonChildren = Children.map(children, (child) =>
@@ -34,10 +45,6 @@ export const Button: ButtonComponent = forwardRef(
         baseClassName="button"
         data-size={size}
         data-variant={variant}
-        skeletonProps={{
-          ...skeletonProps,
-          width: undefined,
-        }}
         {...extraButtonProps}
         {...buttonProps}
       >
