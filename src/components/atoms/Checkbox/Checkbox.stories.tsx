@@ -1,6 +1,7 @@
-import type { StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import Icon from '../Icon';
+import protonArgTypes from '@/components/Proton/protonArgTypes';
 
 import Checkbox from './Checkbox';
 import { CheckboxProps } from './Checkbox.types';
@@ -11,30 +12,38 @@ export default {
   title: 'Atoms/Checkbox',
   component: Checkbox,
   argTypes: {
-    ref: {
-      table: {
-        disable: true,
-      },
-    },
-    children: {
-      table: {
-        disable: true,
-      },
-    },
+    ...protonArgTypes(),
     checked: {
-      control: {
-        type: 'boolean',
+      description: 'Whether the checkbox is checked',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
       },
+      control: 'boolean',
     },
     disabled: {
-      control: {
-        type: 'boolean',
+      description: 'Whether the checkbox is disabled',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
       },
+      control: 'boolean',
+    },
+    indeterminate: {
+      description: 'Whether the checkbox is in an indeterminate state',
+      table: {
+        type: {
+          summary: 'boolean',
+        },
+      },
+      control: 'boolean',
     },
   },
   args: {},
   render: (args: CheckboxProps) => <Checkbox {...args} />,
-};
+} satisfies Meta<typeof Checkbox>;
 
 export const Default: Story = {
   args: {},

@@ -16,6 +16,7 @@
   background-color: var(--input-background);
   color: var(--input-foreground);
   outline: 0 solid var(--focus);
+  font: inherit;
   font-size: var(--input-font-size);
   line-height: var(--input-line-height);
   transition: outline-width var(--timing-slow) var(--ease-squish-5);
@@ -65,15 +66,8 @@
     color: var(--input-placeholder);
   }
 
-  :where(.react-loading-skeleton__container > &) {
+  &:where(.skeleton) {
     --input-border-width: 0px;
-    display: flex;
-    align-items: stretch;
     height: calc(var(--input-line-height) + var(--input-padding-block) * 2);
-    padding: 0;
-
-    :where(.react-loading__skeleton) {
-      flex: 1;
-    }
   }
 }

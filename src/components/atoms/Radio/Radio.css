@@ -3,9 +3,9 @@
   --input-outline: var(--input-inactive);
   position: relative;
   display: grid;
-  grid: [row] auto / [col] auto;
-  width: max-content;
-  height: max-content;
+  grid: [row] 1fr / [col] 1fr;
+  width: var(--icon-size);
+  height: var(--icon-size);
   place-items: stretch;
 
   :where(input, .icon) {
@@ -78,6 +78,17 @@
 
     ~ .icon {
       --input-outline: var(--input-active);
+    }
+  }
+
+  &.skeleton {
+    border: 0.125rem solid transparent;
+    border-radius: calc(var(--border-radius-standard) + 0.125rem);
+    background-clip: padding-box;
+
+    &:where(.radio) {
+      border: 0.0625rem solid transparent;
+      border-radius: 50%;
     }
   }
 }

@@ -1,7 +1,7 @@
-import type { StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import Icon from '../Icon';
-import ProtonArgTypes, { hideArgs } from '@/components/Proton/Proton.args';
+import protonArgTypes, { hideArgs } from '@/components/Proton/protonArgTypes';
 
 import Button from './Button';
 import { ButtonProps, ButtonSize, ButtonVariant } from './Button.types';
@@ -12,16 +12,22 @@ export default {
   title: 'Atoms/Button',
   component: Button,
   argTypes: {
-    ...ProtonArgTypes({ as: 'button' }),
+    ...protonArgTypes({
+      as: {
+        table: {
+          defaultValue: {
+            summary: 'button',
+          },
+        },
+      },
+    }),
     text: {
       table: {
         type: {
           summary: 'string | ReactNode',
         },
       },
-      control: {
-        type: 'text',
-      },
+      control: 'text',
     },
     size: {
       description: 'Size to render',
@@ -34,9 +40,7 @@ export default {
         },
       },
       options: Object.values(ButtonSize),
-      control: {
-        type: 'radio',
-      },
+      control: 'radio',
     },
     variant: {
       description: 'Variant to render',
@@ -49,9 +53,7 @@ export default {
         },
       },
       options: Object.values(ButtonVariant),
-      control: {
-        type: 'radio',
-      },
+      control: 'radio',
     },
     disabled: {
       description: 'Whether to disable the button',
@@ -60,9 +62,7 @@ export default {
           summary: 'boolean',
         },
       },
-      control: {
-        type: 'boolean',
-      },
+      control: 'boolean',
     },
     icon: {
       table: {
@@ -77,7 +77,7 @@ export default {
     text: 'Button',
   },
   render: (args: ButtonProps) => <Button {...args} />,
-};
+} satisfies Meta<typeof Button>;
 
 export const Default: Story = {
   args: {},

@@ -1,5 +1,6 @@
-import type { StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
+import { hideArgs } from '@/components/Proton/protonArgTypes';
 import { Orientation } from '@/types/orientation';
 
 import { Scrollable } from './Scrollable';
@@ -11,15 +12,15 @@ export default {
   title: 'Helpers/Scrollable',
   component: Scrollable,
   argTypes: {
+    ...hideArgs(['horizontal', 'vertical']),
     orientation: {
+      description: 'Scrolling direction',
       table: {
         defaultValue: {
           summary: 'Orientation.HORIZONTAL',
         },
       },
-      control: {
-        type: 'radio',
-      },
+      control: 'radio',
       options: Object.values(Orientation),
     },
   },
@@ -29,7 +30,7 @@ export default {
   parameters: {
     layout: 'centered',
   },
-};
+} satisfies Meta<typeof Scrollable>;
 
 export const Default: Story = {
   args: {

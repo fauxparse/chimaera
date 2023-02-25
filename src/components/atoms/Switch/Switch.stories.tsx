@@ -1,6 +1,7 @@
 import { CSSProperties } from 'react';
-import type { StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
+import protonArgTypes from '@/components/Proton/protonArgTypes';
 import { Orientation } from '@/types/orientation';
 
 import Switch from './Switch';
@@ -20,15 +21,29 @@ export default {
   title: 'Atoms/Switch',
   component: Switch,
   argTypes: {
-    ...hideProps(['ref', 'as', 'baseClassName', 'horizontal', 'vertical']),
+    ...protonArgTypes(),
+    ...hideProps(['as', 'horizontal', 'vertical']),
     disabled: {
-      control: {
-        type: 'boolean',
+      description: 'Whether the switch is disabled',
+      control: 'boolean',
+    },
+    indeterminate: {
+      description: 'Whether the switch is in an indeterminate state',
+    },
+    orientation: {
+      description: 'The orientation of the switch',
+      table: {
+        type: {
+          summary: 'Orientation',
+        },
+        defaultValue: {
+          summary: 'Orientation.HORIZONTAL',
+        },
       },
     },
   },
   render: (args: SwitchProps) => <Switch {...args} />,
-};
+} satisfies Meta<typeof Switch>;
 
 export const Default: Story = {
   args: {

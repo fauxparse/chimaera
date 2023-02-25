@@ -1,4 +1,6 @@
-import type { StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
+
+import ProtonArgTypes from '@/components/Proton/protonArgTypes';
 
 import Icon from './Icon';
 import { IconProps } from './Icon.types';
@@ -9,17 +11,11 @@ export default {
   title: 'Atoms/Icon',
   component: Icon,
   argTypes: {
-    ref: {
-      table: {
-        disable: true,
-      },
-    },
+    ...ProtonArgTypes(),
   },
-  args: {
-    text: 'Icon',
-  },
+  args: {},
   render: (args: IconProps) => <Icon {...args} />,
-};
+} satisfies Meta<typeof Icon>;
 
 export const Default: Story = {
   args: {

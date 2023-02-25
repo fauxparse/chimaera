@@ -1,4 +1,4 @@
-import type { StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import Icon from '@/components/atoms/Icon';
 import Input from '@/components/atoms/Input';
@@ -10,7 +10,8 @@ type Story = StoryObj<typeof AutoResize>;
 export default {
   title: 'Helpers/AutoResize',
   component: AutoResize,
-};
+  argTypes: {},
+} satisfies Meta<typeof AutoResize>;
 
 export const Default: Story = {
   args: {

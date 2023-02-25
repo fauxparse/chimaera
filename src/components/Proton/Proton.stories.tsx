@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 
 import Proton from '.';
 
-const meta: Meta<typeof Proton> = {
+export default {
   title: 'Components/Proton',
   component: Proton,
   argTypes: {
@@ -25,9 +25,7 @@ const meta: Meta<typeof Proton> = {
   args: {
     children: 'Proton',
   },
-};
-
-export default meta;
+} satisfies Meta<typeof Proton>;
 
 type Story = StoryObj<typeof Proton>;
 

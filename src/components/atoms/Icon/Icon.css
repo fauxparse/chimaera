@@ -16,4 +16,8 @@
     fill: currentColor;
     stroke: none;
   }
+
+  &:where(.skeleton) {
+    border-radius: 50%;
+  }
 }

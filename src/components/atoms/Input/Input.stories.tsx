@@ -1,4 +1,6 @@
-import type { StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
+
+import protonArgTypes, { hideArgs } from '@/components/Proton/protonArgTypes';
 
 import { Input } from './Input';
 import { InputProps, InputSize } from './Input.types';
@@ -9,44 +11,48 @@ export default {
   title: 'Atoms/Input',
   component: Input,
   argTypes: {
-    as: {
-      table: {
-        defaultValue: {
-          summary: 'input',
+    ...protonArgTypes({
+      as: {
+        table: {
+          defaultValue: {
+            summary: 'input',
+          },
         },
-        category: 'Proton',
       },
-      control: {
-        disable: true,
+    }),
+    ...hideArgs(Object.values(InputSize)),
+    size: {
+      description: 'Size of the input',
+      table: {
+        type: {
+          summary: 'InputSize',
+        },
+        defaultValue: {
+          summary: 'InputSize.MEDIUM',
+        },
       },
     },
-    loading: {
+    disabled: {
+      description: 'Whether to disable the input',
       table: {
-        category: 'Proton',
+        type: {
+          summary: 'boolean',
+        },
       },
       control: 'boolean',
     },
-    disabled: {
-      control: {
-        type: 'boolean',
-      },
-    },
-    theme: {
+    htmlSize: {
+      description: 'Value to pass to the underlying input’s `size` attribute',
       table: {
-        disable: true,
+        type: {
+          summary: 'number',
+        },
       },
+      control: 'number',
     },
-    ref: {
-      table: {
-        disable: true,
-      },
-    },
-  },
-  args: {
-    text: 'Input',
   },
   render: (args: InputProps) => <Input {...args} />,
-};
+} satisfies Meta<typeof Input>;
 
 export const Default: Story = {
   args: {

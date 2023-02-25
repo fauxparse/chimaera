@@ -1,9 +1,9 @@
-import type { StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import Button from '@/components/atoms/Button';
-import Input from '@/components/atoms/Input';
+import Input, { InputSize } from '@/components/atoms/Input';
+import protonArgTypes, { hideArgs } from '@/components/Proton/protonArgTypes';
 
-import { InputGroupProps } from './InputGroup.types';
 import { InputGroup } from '.';
 
 type Story = StoryObj<typeof InputGroup>;
@@ -12,31 +12,35 @@ export default {
   title: 'Molecules/InputGroup',
   component: InputGroup,
   argTypes: {
-    as: {
-      table: {
+    ...protonArgTypes({
+      as: {
         defaultValue: {
-          summary: 'inputGroup',
+          summary: 'fieldset',
         },
-        category: 'Proton',
       },
-      control: {
-        disable: true,
+    }),
+    ...hideArgs(Object.values(InputSize)),
+    size: {
+      description: 'Size of the components within the input group',
+      table: {
+        type: {
+          summary: 'InputSize',
+        },
       },
     },
-    theme: {
+    disabled: {
+      description: 'Disables the input group',
       table: {
-        disable: true,
+        type: {
+          summary: 'boolean',
+        },
       },
-    },
-    ref: {
-      table: {
-        disable: true,
-      },
+      control: 'boolean',
     },
   },
   args: {},
-  render: (args: InputGroupProps) => <InputGroup {...args} />,
-};
+  render: (args) => <InputGroup {...args} />,
+} satisfies Meta<typeof InputGroup>;
 
 export const Default: Story = {
   args: {

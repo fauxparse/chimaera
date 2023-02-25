@@ -51,6 +51,9 @@ export const parameters = {
   },
   docs: {
     container: DocsContainer,
+    argTypes: {
+      sort: 'requiredFirst',
+    },
   },
   darkMode: {
     dark,

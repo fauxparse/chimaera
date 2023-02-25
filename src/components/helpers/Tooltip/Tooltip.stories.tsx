@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FloatingDelayGroup } from '@floating-ui/react';
-import type { StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import Button from '@/components/atoms/Button';
 
@@ -38,7 +38,7 @@ export default {
   parameters: {
     layout: 'centered',
   },
-};
+} satisfies Meta<typeof Tooltip>;
 
 export const Default: Story = {
   args: {

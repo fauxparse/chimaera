@@ -1,4 +1,4 @@
-import type { StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/react';
 
 import Radio from './Radio';
 import { RadioProps } from './Radio.types';
@@ -15,19 +15,15 @@ export default {
       },
     },
     checked: {
-      control: {
-        type: 'boolean',
-      },
+      control: 'boolean',
     },
     disabled: {
-      control: {
-        type: 'boolean',
-      },
+      control: 'boolean',
     },
   },
   args: {},
   render: (args: RadioProps) => <Radio {...args} />,
-};
+} satisfies Meta<typeof Radio>;
 
 export const Default: Story = {
   args: {},

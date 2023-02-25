@@ -1,5 +1,4 @@
 import { forwardRef, useRef } from 'react';
-import Skeleton from 'react-loading-skeleton';
 import { mergeRefs } from 'react-merge-refs';
 
 import Icon from '../Icon';
@@ -24,21 +23,14 @@ export const Radio = forwardRef<HTMLInputElement, RadioProps>(
     const ownRef = useRef<HTMLInputElement>(null);
 
     return (
-      <span className={baseClassName}>
-        {loading ? (
-          <Skeleton
-            width="var(--icon-size)"
-            height="var(--icon-size)"
-            circle={type === 'radio'}
-            style={{ display: 'flex' }}
-          />
-        ) : (
+      <Proton as="span" baseClassName={baseClassName} loading={loading}>
+        {!loading && (
           <>
-            <Proton as="input" type={type} ref={mergeRefs([ref, ownRef])} {...props} />
+            <input type={type} ref={mergeRefs([ref, ownRef])} {...props} />
             {children}
           </>
         )}
-      </span>
+      </Proton>
     );
   }
 );

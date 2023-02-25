@@ -1,5 +1,4 @@
-import { Canvas, Meta, Story } from '@storybook/blocks';
-import { ArgsTable } from '@storybook/addon-docs';
+import { Canvas, Meta, Story, ArgTypes } from '@storybook/blocks';
 import * as InputGroupStories from './InputGroup.stories';
 
 <Meta title="Molecules/InputGroup" of={InputGroupStories} />
@@ -9,3 +8,5 @@ import * as InputGroupStories from './InputGroup.stories';
 <Canvas>
   <Story of={InputGroupStories.Default} />
 </Canvas>
+
+<ArgTypes of={InputGroupStories} />

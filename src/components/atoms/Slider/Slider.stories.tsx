@@ -2,31 +2,50 @@ import { useEffect, useState } from 'react';
 import type { Meta, StoryObj } from '@storybook/react';
 
 import Button from '../Button';
+import protonArgTypes from '@/components/Proton/protonArgTypes';
 
 import { Slider } from './Slider';
 import { RangeValue, SingleValue, SliderProps } from './Slider.types';
 
 type Story = StoryObj<typeof Slider>;
 
-const meta = {
+export default {
   title: 'Atoms/Slider',
   component: Slider,
   argTypes: {
-    disabled: {
-      control: {
-        type: 'boolean',
+    ...protonArgTypes(),
+    onChange: {
+      description: 'Fired when the slider value changes',
+    },
+    value: {
+      description: 'The current value(s) of the slider',
+      table: {
+        type: {
+          summary: 'number | [number, number]',
+        },
       },
     },
-    ref: {
-      table: {
-        disable: true,
-      },
+    step: {
+      description: 'Minimum step size (granularity)',
+    },
+    jump: {
+      description: 'Step when <kbd>PageUp</kbd>/<kbd>PageDown</kbd> is pressed',
+    },
+    min: {
+      description: 'Minimum value',
+    },
+    max: {
+      description: 'Maximum value',
+    },
+    onFormatValue: {
+      description: 'Called to turn a slider value into a string',
+    },
+    disabled: {
+      description: 'Whether the slider is disabled',
+      control: 'boolean',
     },
   },
   args: {
-    style: {
-      marginTop: '4rem',
-    },
     onFormatValue: String,
   },
   render: function Render(args: SliderProps) {
@@ -34,8 +53,6 @@ const meta = {
     return <Slider {...args} value={value} onChange={setValue} />;
   },
 } satisfies Meta<typeof Slider>;
-
-export default meta;
 
 export const Default: Story = {
   args: {
@@ -47,10 +64,10 @@ export const Default: Story = {
     const [value, setValue] = useState(args.value as SingleValue);
 
     return (
-      <>
+      <div style={{ marginBlock: '4rem' }}>
         <Slider {...args} value={value} onChange={setValue} />
         <Button text="Reset" onClick={() => setValue(50)} />
-      </>
+      </div>
     );
   },
 };
