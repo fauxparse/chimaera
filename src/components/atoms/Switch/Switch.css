@@ -33,12 +33,6 @@
     --thumb-transition-duration: 0s;
   }
 
-  &:where(.react-loading-skeleton) {
-    &::before {
-      opacity: 0;
-    }
-  }
-
   &::before {
     content: "";
     grid-area: track;
@@ -94,5 +88,9 @@
       box-shadow: inset 0 0 0 2px var(--switch-thumb-color);
       outline-width: 0;
     }
+  }
+
+  &:where(.skeleton)::before {
+    opacity: 0;
   }
 }

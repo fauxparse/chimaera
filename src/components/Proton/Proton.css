@@ -17,5 +17,6 @@
     var(--skeleton-base) 65%
   );
   background-size: 300% 100%;
+  pointer-events: none;
   animation: loading normal 1.5s ease-in-out infinite;
 }
